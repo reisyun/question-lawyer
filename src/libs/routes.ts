@@ -1,10 +1,17 @@
-import Home from '@/pages/Home';
+import Question from '@/pages/Question';
+import Register from '@/pages/Register';
 
 export const routes = [
   {
-    name: '교통범죄',
+    name: 'Question',
     path: '/',
     exact: true,
-    component: Home,
+    component: Question,
+  },
+  {
+    name: 'Register',
+    path: '/register',
+    exact: true,
+    component: Register,
   },
 ];

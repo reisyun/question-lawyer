@@ -37,6 +37,7 @@ const SelectItem = styled.div`
   height: 80px;
   background: #e6ebf0;
   border-radius: 16px;
+  transition: background 0.3s;
 
   &.selected {
     background: #c7d0d8;

@@ -1,19 +1,14 @@
-export interface UserModel {
-  avatar?: string;
-  name: string;
+export interface Theme {
+  theme: string;
+  subject: Subject[];
 }
 
-export interface PostInfoModel {
-  user: UserModel;
+export interface Subject {
   title: string;
-  image?: string;
-  date?: string;
-  likeCount?: number;
+  question: Question[];
 }
 
-export interface EventInfoModel {
-  title: string;
-  category: string;
-  image?: string;
-  date?: string;
+export interface Question {
+  q: string;
+  a?: string[];
 }

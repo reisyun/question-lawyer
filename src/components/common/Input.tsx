@@ -9,11 +9,11 @@ export interface InputProps extends Omit<React.HTMLProps<HTMLInputElement>, 'as'
 }
 
 const baseStyles = ({ theme }: ThemeProps) => css`
-  all: unset;
   padding: 0 16px;
   width: 100%;
   height: 40px;
   background: ${theme.palette.background.level1};
+  border: 0;
   border-radius: 4px;
   font-size: ${theme.size.fontSize.sm};
   color: ${theme.palette.color.primary};
