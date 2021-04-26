@@ -41,3 +41,12 @@ export const throttle = (callback: () => void) => {
     ticking = true;
   }
 };
+
+/**
+ * 이메일 유효성 검사
+ */
+export const isEmail = (value: string) => {
+  // eslint-disable-next-line no-useless-escape
+  const regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+  return regExp.test(value);
+};

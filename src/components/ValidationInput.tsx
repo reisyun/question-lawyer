@@ -4,16 +4,31 @@ import Input from '@/components/common/Input';
 import ValidationHint from '@/components/common/ValidationHint';
 
 export interface ValidationInputProps {
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
   disabled?: boolean;
   invalid?: boolean;
   placeholder?: string;
   validationHint?: string;
 }
 
-function ValidationInput({ disabled, invalid, placeholder, validationHint }: ValidationInputProps) {
+function ValidationInput({
+  value,
+  onChange,
+  disabled,
+  invalid,
+  placeholder,
+  validationHint,
+}: ValidationInputProps) {
   return (
     <ValidationInputBlock>
-      <Input disabled={disabled} invalid={invalid} placeholder={placeholder} />
+      <Input
+        value={value}
+        onChange={onChange}
+        disabled={disabled}
+        invalid={invalid}
+        placeholder={placeholder}
+      />
       {validationHint && (
         <ValidationHint disabled={disabled} invalid={invalid}>
           {validationHint}

@@ -16,8 +16,6 @@ function Layout({ children }: { children: React.ReactChild }) {
 
 const Wrapper = styled.div`
   position: relative;
-  height: 100vh;
-  background: ${props => props.theme.palette.background.default};
 `;
 
 const Content = styled.div`

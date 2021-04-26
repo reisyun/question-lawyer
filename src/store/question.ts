@@ -1,19 +1,12 @@
 import { atom } from 'recoil';
+import { Subject } from '@/libs/model';
 
-export interface IQuestion {
-  q: string;
-  a: string;
-}
-
-export const QUESTION_INPUT = 'Question/INPUT';
 export const QUESTION_LIST = 'Question/LIST';
 
-export const inputState = atom<string>({
-  key: QUESTION_INPUT,
-  default: '',
-});
-
-export const questionState = atom<IQuestion[]>({
+export const questionState = atom<Subject>({
   key: QUESTION_LIST,
-  default: [],
+  default: {
+    title: 'Unknown',
+    question: [],
+  },
 });

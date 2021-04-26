@@ -1,7 +1,10 @@
 import React from 'react';
+import { init } from 'emailjs-com';
 import ReactDOM from 'react-dom';
 import App from '@/components/App';
 import reportWebVitals from './reportWebVitals';
+
+init('');
 
 ReactDOM.render(
   <React.StrictMode>

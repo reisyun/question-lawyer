@@ -13,7 +13,7 @@ const color = {
 const background = {
   default: '#F4F7FB',
   disabled: '#E6E6E6',
-  level1: '#EFEFEF',
+  level1: '#f1f2f6',
 };
 
 const divider = rgba(color.black, 0.12);
