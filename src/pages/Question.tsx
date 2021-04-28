@@ -3,10 +3,10 @@ import { useRecoilState } from 'recoil';
 import { questionFormState, UserAnswer } from '@/atom/question';
 import { useParams, useHistory } from 'react-router-dom';
 import { data } from '@/libs/data';
-import Content from '@/components/Content';
 import Select from '@/components/Select';
 import MainButton from '@/components/MainButton';
-import ValidationInput from '@/components/ValidationInput';
+import TextArea from '@/components/TextArea';
+import Layout from '@/components/Layout';
 
 function Question() {
   const { subject } = useParams<{ subject: string }>();
@@ -16,7 +16,8 @@ function Question() {
   const [answer, setAnswer] = useState<string>('');
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const { question } = data.subject.find(s => s.title === subject)!;
+  const { title, question } = data.subject.find(s => s.title === subject)!;
+  const currentSubject = title;
   const currentQuestion = question[count];
 
   /**
@@ -50,7 +51,7 @@ function Question() {
   };
 
   // Select component
-  const selectQuestion = (event: React.MouseEvent<HTMLDivElement>) => {
+  const selectQuestion = (event: React.MouseEvent<HTMLButtonElement>) => {
     const select = event.target as HTMLDivElement;
     const selectedValue = select.innerText;
 
@@ -58,7 +59,7 @@ function Question() {
   };
 
   // Input component
-  const enterQuestion = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const enterQuestion = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = event.target;
 
     setAnswer(value);
@@ -66,14 +67,15 @@ function Question() {
 
   return (
     <>
-      <Content title={currentQuestion.q}>
+      <Layout title={currentQuestion.q} subject={currentSubject}>
         {currentQuestion.a ? (
           <Select onClick={selectQuestion} items={currentQuestion.a} />
         ) : (
-          <ValidationInput value={answer} placeholder="입력해주세요" onChange={enterQuestion} />
+          // <TextareaAutosize minRows={3} maxRows={6} defaultValue="Just a single line..." />
+          <TextArea value={answer} onChange={enterQuestion} />
         )}
-      </Content>
-      <MainButton onClick={nextQuestion}>다음</MainButton>
+        <MainButton onClick={nextQuestion}>다음</MainButton>
+      </Layout>
     </>
   );
 }

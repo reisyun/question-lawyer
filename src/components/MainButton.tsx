@@ -9,15 +9,15 @@ interface MainButtonProps {
 
 function MainButton({ children, ...rest }: MainButtonProps) {
   return (
-    <MainButtonBlock variant="containe" {...rest}>
+    <MainButtonBlock size="medium" variant="containe" {...rest}>
       {children}
     </MainButtonBlock>
   );
 }
 
 const MainButtonBlock = styled(Button)`
+  margin-top: 24px;
   width: 100%;
-  height: 48px;
   border-radius: 8px;
 `;
 

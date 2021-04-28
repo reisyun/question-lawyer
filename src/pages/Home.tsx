@@ -4,9 +4,9 @@ import { useHistory } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { questionFormState } from '@/atom/question';
 import { data } from '@/libs/data';
-import Content from '@/components/Content';
 import Button from '@/components/common/Button';
 import { Subject } from '@/libs/model';
+import Layout from '@/components/Layout';
 
 function Home() {
   const history = useHistory();
@@ -25,7 +25,7 @@ function Home() {
   const subjects = data.subject.map(subject => (
     <StyledButton
       key={subject.title}
-      variant="outline"
+      variant="text"
       size="large"
       onClick={() => selectSubject(subject)}
     >
@@ -34,19 +34,20 @@ function Home() {
   ));
 
   return (
-    <Content title="변호사가 직접만든 무료 법률 진단">
-      <Wrapper>{subjects}</Wrapper>
-    </Content>
+    <Layout main title="형사법률 리스크 진단" desc="변호사에게 무료로 진단 받으세요!">
+      <List>{subjects}</List>
+    </Layout>
   );
 }
 
-const Wrapper = styled.div`
+const List = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
 const StyledButton = styled(Button)`
   margin: 8px 0;
+  background: white;
 `;
 
 export default Home;

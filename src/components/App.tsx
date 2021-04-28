@@ -17,9 +17,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Global styles={global} />
         <Router>
-          <Layout>
-            <Switch>{route}</Switch>
-          </Layout>
+          <Switch>{route}</Switch>
         </Router>
       </ThemeProvider>
     </RecoilRoot>

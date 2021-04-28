@@ -16,11 +16,11 @@ const baseStyles = css`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 16px;
+  padding: 0;
   background: none;
   outline: none;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   transition: background 0.3s;
   cursor: pointer;
 
@@ -32,18 +32,15 @@ const baseStyles = css`
 const sizeStyles = ({ theme, size = 'medium' }: ButtonProps & ThemeProps) => {
   return {
     small: css`
-      padding: 0 16px;
       height: 32px;
       font-size: ${theme.size.fontSize.xs};
     `,
     medium: css`
-      padding: 0 24px;
-      height: 40px;
+      height: 48px;
       font-size: ${theme.size.fontSize.sm};
     `,
     large: css`
-      padding: 0 32px;
-      height: 48px;
+      height: 64px;
       font-size: ${theme.size.fontSize.md};
     `,
   }[size];

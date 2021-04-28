@@ -6,10 +6,10 @@ import { questionFormState } from '@/atom/question';
 import { config } from '@/libs/config';
 import { isEmail } from '@/libs/utils';
 import { validateHint } from '@/libs/validateHint';
-import Content from '@/components/Content';
-import Text from '@/components/common/Text';
+import { EmailIllust } from '@/assets/icons/index';
 import ValidationInput from '@/components/ValidationInput';
 import MainButton from '@/components/MainButton';
+import Layout from '@/components/Layout';
 
 const { EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID } = config;
 
@@ -60,44 +60,34 @@ function Register() {
     };
 
     // 이메일 보내기
-    const email = await emailjs.send(
-      EMAILJS_SERVICE_ID as string,
-      EMAILJS_TEMPLATE_ID as string,
-      template,
-    );
-
-    console.log(email);
+    // const email = await emailjs.send(
+    //   EMAILJS_SERVICE_ID as string,
+    //   EMAILJS_TEMPLATE_ID as string,
+    //   template,
+    // );
   };
 
   return (
-    <>
-      <Content title="진단완료">
-        <Paragraph as="p" color="secondary" fontSize="xl" bold>
-          이메일 입력하고
-          <br />
-          검진결과를 받아보세요
-        </Paragraph>
-        <EmailValidationInput
-          value={emailValue}
-          placeholder="이메일을 입력해주세요"
-          onChange={handleChange}
-          // 이메일 유효성 검사 관련 속성
-          invalid={isValidEmail}
-          validationHint={isValidEmail ? validateHint.email : ''}
-        />
-      </Content>
-      <MainButton onClick={handleSubmit}>검진결과 보기</MainButton>
-    </>
+    <Layout main title="수고하셨습니다" desc="이메일을 입력하시면 빠르게 연락드리겠습니다!">
+      <Illust />
+      <ValidationInput
+        value={emailValue}
+        placeholder="이메일을 입력해주세요"
+        onChange={handleChange}
+        // 이메일 유효성 검사 관련 속성
+        invalid={isValidEmail}
+        validationHint={isValidEmail ? validateHint.email : ''}
+      />
+      <MainButton onClick={handleSubmit}>요청하기</MainButton>
+    </Layout>
   );
 }
 
-const Paragraph = styled(Text)`
-  text-align: center;
-  margin-bottom: 32px;
-`;
-
-const EmailValidationInput = styled(ValidationInput)`
+const Illust = styled(EmailIllust)`
   width: 100%;
+  max-height: 200px;
+  opacity: 0.8;
+  margin-bottom: 32px;
 `;
 
 export default Register;

@@ -4,6 +4,8 @@ const fontSize = {
   md: '16px',
   lg: '20px',
   xl: '24px',
+  subtitle: '28px',
+  title: '40px',
 };
 
 const iconSize = {

@@ -10,5 +10,6 @@ export interface Subject {
 
 export interface Question {
   q: string;
+  desc?: string;
   a?: string[];
 }
