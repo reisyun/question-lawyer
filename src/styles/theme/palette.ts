@@ -7,8 +7,9 @@ const color = {
   hint: '#BDBDBD',
   white: '#FFF',
   black: '#000',
-  disabled: '#E6E6E6',
+  disabled: '#E8E9EB',
   background: '#F5F6FA',
+  success: '#27ae60',
 };
 
 const divider = rgba(color.black, 0.12);

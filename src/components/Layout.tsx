@@ -8,7 +8,7 @@ export interface LayoutProps {
   title: string;
   desc?: string;
   subject?: string;
-  children: React.ReactChild | React.ReactChild[];
+  children: React.ReactNode | React.ReactNode[];
 }
 
 // TODO: header component를 합치던 하기.

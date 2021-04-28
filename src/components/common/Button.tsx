@@ -81,7 +81,7 @@ const disabledStyles = ({ theme, disabled }: ButtonProps & ThemeProps) =>
   disabled &&
   css`
     background: ${theme.palette.color.disabled};
-    color: ${theme.palette.color.secondary};
+    color: ${theme.palette.color.hint};
 
     &:disabled {
       background: ${theme.palette.color.disabled};

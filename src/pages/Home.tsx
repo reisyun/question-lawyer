@@ -34,7 +34,7 @@ function Home() {
   ));
 
   return (
-    <Layout main title="형사법률 리스크 진단" desc="변호사에게 무료로 진단 받으세요!">
+    <Layout main title={data.theme} desc="원하는 주제를 선택해주세요">
       <List>{subjects}</List>
     </Layout>
   );
@@ -48,6 +48,14 @@ const List = styled.div`
 const StyledButton = styled(Button)`
   margin: 8px 0;
   background: white;
+  color: ${({ theme }) => theme.palette.color.secondary};
+
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background: ${({ theme }) => theme.palette.color.main};
+    color: white;
+  }
 `;
 
 export default Home;

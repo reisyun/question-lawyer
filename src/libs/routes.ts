@@ -1,11 +1,18 @@
+import Info from '@/pages/Info';
 import Home from '@/pages/Home';
 import Question from '@/pages/Question';
 import Register from '@/pages/Register';
 
 export const routes = [
   {
-    name: 'Home',
+    name: 'Info',
     path: '/',
+    exact: true,
+    component: Info,
+  },
+  {
+    name: 'Home',
+    path: '/question',
     exact: true,
     component: Home,
   },

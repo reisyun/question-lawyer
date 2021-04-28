@@ -10,6 +10,7 @@ import { EmailIllust } from '@/assets/icons/index';
 import ValidationInput from '@/components/ValidationInput';
 import MainButton from '@/components/MainButton';
 import Layout from '@/components/Layout';
+import Modal from '@/components/Modal';
 
 const { EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID } = config;
 
@@ -17,6 +18,7 @@ function Register() {
   const [questionForm, setQuestionForm] = useRecoilState(questionFormState);
   const [emailValue, setEmailValue] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(false);
+  const [activeModal, setActiveModal] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -27,15 +29,16 @@ function Register() {
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    // 이메일 유효성에 맞으면 valid
+    // 이메일 유효성에 틀리면 invalid
     if (!isEmail(emailValue)) {
       setIsValidEmail(true);
       return;
     }
+    setIsValidEmail(false);
 
+    // 폼에 이메일 전달
     setQuestionForm(oldQuestionForm => ({
       ...oldQuestionForm,
-      email: emailValue,
     }));
 
     const qa = questionForm.question;
@@ -57,14 +60,14 @@ function Register() {
       ...questions[7],
       ...questions[8],
       ...questions[9],
+      email: emailValue,
     };
 
     // 이메일 보내기
-    // const email = await emailjs.send(
-    //   EMAILJS_SERVICE_ID as string,
-    //   EMAILJS_TEMPLATE_ID as string,
-    //   template,
-    // );
+    await emailjs.send(EMAILJS_SERVICE_ID as string, EMAILJS_TEMPLATE_ID as string, template);
+
+    // 모달 열기
+    setActiveModal(true);
   };
 
   return (
@@ -79,6 +82,7 @@ function Register() {
         validationHint={isValidEmail ? validateHint.email : ''}
       />
       <MainButton onClick={handleSubmit}>요청하기</MainButton>
+      {activeModal ? <Modal /> : null}
     </Layout>
   );
 }

@@ -41,7 +41,7 @@ export const data: Theme = {
       ],
     },
     {
-      title: '뻉소니',
+      title: '뺑소니',
       question: [
         {
           q: '다음 중 어떤 사례에 해당하는가요?',

@@ -3,13 +3,14 @@ import styled from '@emotion/styled';
 import Button from '@/components/common/Button';
 
 interface MainButtonProps {
-  children: string;
+  disabled?: boolean;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
+  children: string;
 }
 
-function MainButton({ children, ...rest }: MainButtonProps) {
+function MainButton({ disabled, children, ...rest }: MainButtonProps) {
   return (
-    <MainButtonBlock size="medium" variant="containe" {...rest}>
+    <MainButtonBlock size="medium" variant="containe" disabled={disabled} {...rest}>
       {children}
     </MainButtonBlock>
   );

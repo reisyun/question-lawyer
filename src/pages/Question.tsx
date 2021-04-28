@@ -67,14 +67,16 @@ function Question() {
 
   return (
     <>
-      <Layout title={currentQuestion.q} subject={currentSubject}>
+      <Layout title={currentQuestion.q} subject={currentSubject} desc={currentQuestion.desc}>
         {currentQuestion.a ? (
           <Select onClick={selectQuestion} items={currentQuestion.a} />
         ) : (
           // <TextareaAutosize minRows={3} maxRows={6} defaultValue="Just a single line..." />
           <TextArea value={answer} onChange={enterQuestion} />
         )}
-        <MainButton onClick={nextQuestion}>다음</MainButton>
+        <MainButton disabled={!answer} onClick={nextQuestion}>
+          다음
+        </MainButton>
       </Layout>
     </>
   );
