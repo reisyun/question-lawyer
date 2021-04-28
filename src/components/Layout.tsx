@@ -2,13 +2,10 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Header from './Header';
 
-/**
- * 모든 페이지에 항상 보이고 싶은 컴포넌트를 이곳에 삽입
- */
 function Layout({ children }: { children: React.ReactChild }) {
   return (
     <Wrapper>
-      <Header />
+      <Header title="형사법률 리스크 진단" desc="변호사에게 무료로 진단 받으세요!" />
       <Content>{children}</Content>
     </Wrapper>
   );
@@ -16,11 +13,22 @@ function Layout({ children }: { children: React.ReactChild }) {
 
 const Wrapper = styled.div`
   position: relative;
+  background: ${({ theme }) => theme.palette.color.background};
+  height: 100%;
+
+  /* decoration */
+  &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 16px;
+    background: ${({ theme }) => theme.palette.color.main};
+  }
 `;
 
 const Content = styled.div`
   margin: 0 auto;
-  padding-top: 32px;
+  padding: 32px 0 40px;
   max-width: 460px;
 `;
 

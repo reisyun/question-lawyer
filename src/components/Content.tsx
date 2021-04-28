@@ -27,8 +27,6 @@ const ContentBlock = styled.div`
   flex-flow: column wrap;
   justify-content: center;
   margin-bottom: 24px;
-  padding: 40px 16px 32px;
-  background: ${({ theme }) => theme.palette.background.default};
   border-radius: 8px;
 `;
 

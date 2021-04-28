@@ -1,19 +1,14 @@
 import { rgba } from 'polished';
 
 const color = {
-  main: '#489cea',
-  sub: '#225C86',
+  main: '#273C75',
   primary: '#212121',
   secondary: '#757575',
   hint: '#BDBDBD',
   white: '#FFF',
   black: '#000',
-};
-
-const background = {
-  default: '#F4F7FB',
   disabled: '#E6E6E6',
-  level1: '#f1f2f6',
+  background: '#F5F6FA',
 };
 
 const divider = rgba(color.black, 0.12);
@@ -26,20 +21,17 @@ const overlay = {
 };
 
 export type ColorType = typeof color;
-export type BackgroundType = typeof background;
 export type DividerType = typeof divider;
 export type OverlayType = typeof overlay;
 
 export interface IPalette {
   color: ColorType;
-  background: BackgroundType;
   divider: DividerType;
   overlay: OverlayType;
 }
 
 const palette: IPalette = {
   color,
-  background,
   divider,
   overlay,
 };

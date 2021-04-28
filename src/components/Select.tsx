@@ -1,22 +1,27 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useTabs } from '@/hooks/useTabs';
-import Text from '@/components/common/Text';
 
 interface SelectProps {
   items: Array<string>;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
 }
 
-function Select({ items }: SelectProps) {
+function Select({ items, onClick }: SelectProps) {
   const [currentTab, setCurrentIndex] = useTabs(items);
+
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>, idx: number) => {
+    onClick(event);
+    setCurrentIndex(idx);
+  };
 
   const selectItem = items.map((item, idx) => (
     <SelectItem
       key={item}
-      onClick={() => setCurrentIndex(idx)}
+      onClick={e => handleClick(e, idx)}
       className={item === currentTab ? 'selected' : ''}
     >
-      <Text>{item}</Text>
+      {item}
     </SelectItem>
   ));
 

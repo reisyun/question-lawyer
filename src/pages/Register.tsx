@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import emailjs from 'emailjs-com';
 import styled from '@emotion/styled';
+import emailjs from 'emailjs-com';
+import { useRecoilState } from 'recoil';
+import { questionFormState } from '@/atom/question';
+import { config } from '@/libs/config';
 import { isEmail } from '@/libs/utils';
 import { validateHint } from '@/libs/validateHint';
 import Content from '@/components/Content';
@@ -8,10 +11,10 @@ import Text from '@/components/common/Text';
 import ValidationInput from '@/components/ValidationInput';
 import MainButton from '@/components/MainButton';
 
-const EMAILJS_SERVICE_ID = 'question_tree';
-const EMAILJS_TEMPLATE_ID = 'template_g9sreii';
+const { EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID } = config;
 
 function Register() {
+  const [questionForm, setQuestionForm] = useRecoilState(questionFormState);
   const [emailValue, setEmailValue] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(false);
 
@@ -25,15 +28,43 @@ function Register() {
     event.preventDefault();
 
     // 이메일 유효성에 맞으면 valid
-    if (isEmail(emailValue)) {
-      setIsValidEmail(false);
-    } else {
+    if (!isEmail(emailValue)) {
       setIsValidEmail(true);
+      return;
     }
 
-    const email = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      message: emailValue,
-    });
+    setQuestionForm(oldQuestionForm => ({
+      ...oldQuestionForm,
+      email: emailValue,
+    }));
+
+    const qa = questionForm.question;
+    const questions = qa.map((item, idx) => ({
+      [`q${idx}`]: item.q,
+      [`a${idx}`]: item.a,
+    }));
+
+    const template = {
+      ...questionForm,
+      // TODO: flat이 안되서 수동으로함..
+      ...questions[0],
+      ...questions[1],
+      ...questions[2],
+      ...questions[3],
+      ...questions[4],
+      ...questions[5],
+      ...questions[6],
+      ...questions[7],
+      ...questions[8],
+      ...questions[9],
+    };
+
+    // 이메일 보내기
+    const email = await emailjs.send(
+      EMAILJS_SERVICE_ID as string,
+      EMAILJS_TEMPLATE_ID as string,
+      template,
+    );
 
     console.log(email);
   };

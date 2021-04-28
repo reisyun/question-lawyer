@@ -12,7 +12,7 @@ const baseStyles = ({ theme }: ThemeProps) => css`
   padding: 0 16px;
   width: 100%;
   height: 40px;
-  background: ${theme.palette.background.level1};
+  background: ${theme.palette.color.white};
   border: 0;
   border-radius: 4px;
   font-size: ${theme.size.fontSize.sm};
@@ -23,7 +23,7 @@ const baseStyles = ({ theme }: ThemeProps) => css`
   }
 
   :disabled {
-    background: ${theme.palette.background.disabled};
+    background: ${theme.palette.color.disabled};
   }
 `;
 

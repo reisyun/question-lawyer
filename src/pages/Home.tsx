@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useHistory } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { questionState } from '@/store/question';
+import { questionFormState } from '@/atom/question';
 import { data } from '@/libs/data';
 import Content from '@/components/Content';
 import Button from '@/components/common/Button';
@@ -10,15 +10,15 @@ import { Subject } from '@/libs/model';
 
 function Home() {
   const history = useHistory();
-  const setQusetion = useSetRecoilState(questionState);
+  const setQusetionForm = useSetRecoilState(questionFormState);
 
-  const selectSubject = (newSubject: Subject) => {
-    setQusetion(oldSubject => ({
-      ...oldSubject,
-      ...newSubject,
+  const selectSubject = (subject: Subject) => {
+    setQusetionForm(oldForm => ({
+      ...oldForm,
+      subject: subject.title,
     }));
 
-    history.push(`/question/${newSubject.title}`);
+    history.push(`/question/${subject.title}`);
   };
 
   // data에 있는 주제들을 버튼으로 생성

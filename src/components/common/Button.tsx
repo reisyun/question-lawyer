@@ -83,11 +83,11 @@ const variantStyles = ({ theme, variant = 'none' }: ButtonProps & ThemeProps) =>
 const disabledStyles = ({ theme, disabled }: ButtonProps & ThemeProps) =>
   disabled &&
   css`
-    background: ${theme.palette.background.disabled};
+    background: ${theme.palette.color.disabled};
     color: ${theme.palette.color.secondary};
 
     &:disabled {
-      background: ${theme.palette.background.disabled};
+      background: ${theme.palette.color.disabled};
       cursor: auto;
     }
   `;

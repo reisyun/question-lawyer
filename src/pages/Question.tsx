@@ -1,20 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { questionFormState, UserAnswer } from '@/atom/question';
 import { useParams, useHistory } from 'react-router-dom';
 import { data } from '@/libs/data';
 import Content from '@/components/Content';
-import MainButton from '@/components/MainButton';
 import Select from '@/components/Select';
+import MainButton from '@/components/MainButton';
 import ValidationInput from '@/components/ValidationInput';
 
 function Question() {
   const { subject } = useParams<{ subject: string }>();
   const history = useHistory();
+  const [questionForm, setQuestionForm] = useRecoilState(questionFormState);
   const [count, setCount] = useState<number>(0);
-  const [inputValue, setInputValue] = useState<string>('');
+  const [answer, setAnswer] = useState<string>('');
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { question } = data.subject.find(s => s.title === subject)!;
-  const current = question[count];
+  const currentQuestion = question[count];
+
+  /**
+   * 다음 질문으로 넘어갈 때 값 초기화
+   */
+  useEffect(() => {
+    setAnswer('');
+  }, [count, questionForm]);
+
+  const addAnswer = (answer: UserAnswer) => {
+    setQuestionForm(oldForm => ({
+      ...oldForm,
+      question: [...oldForm.question, answer],
+    }));
+  };
 
   const nextQuestion = () => {
     // 질문이 모두 끝나면 register page로 이동
@@ -22,27 +39,38 @@ function Question() {
       history.push('/register');
     }
 
-    /**
-     * 다음 버튼을 누르면
-     *
-     * 다음 질문으로 넘어가기 위해서 count + 1
-     * 다음 질문을 가기 전 인풋 값을 비움
-     */
+    // 다음 버튼을 누르면 count + 1
     setCount(prevCount => prevCount + 1);
-    setInputValue('');
+
+    // 질답 추가
+    addAnswer({
+      q: currentQuestion.q,
+      a: answer,
+    });
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
+  // Select component
+  const selectQuestion = (event: React.MouseEvent<HTMLDivElement>) => {
+    const select = event.target as HTMLDivElement;
+    const selectedValue = select.innerText;
+
+    setAnswer(selectedValue);
+  };
+
+  // Input component
+  const enterQuestion = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+
+    setAnswer(value);
   };
 
   return (
     <>
-      <Content title={current.q}>
-        {current.a ? (
-          <Select items={current.a} />
+      <Content title={currentQuestion.q}>
+        {currentQuestion.a ? (
+          <Select onClick={selectQuestion} items={currentQuestion.a} />
         ) : (
-          <ValidationInput value={inputValue} placeholder="입력해주세요" onChange={handleChange} />
+          <ValidationInput value={answer} placeholder="입력해주세요" onChange={enterQuestion} />
         )}
       </Content>
       <MainButton onClick={nextQuestion}>다음</MainButton>

@@ -1,10 +1,11 @@
 import React from 'react';
+import { config } from '@/libs/config';
 import { init } from 'emailjs-com';
 import ReactDOM from 'react-dom';
 import App from '@/components/App';
 import reportWebVitals from './reportWebVitals';
 
-init('');
+init(config.EMAILJS_USER_ID);
 
 ReactDOM.render(
   <React.StrictMode>
