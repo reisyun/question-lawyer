@@ -54,6 +54,10 @@ const Illust = styled(Logo)`
   width: 100%;
   max-height: 300px;
   opacity: 0.8;
+
+  @media (max-width: 576px) {
+    height: 240px;
+  }
 `;
 
 const TitleGroup = styled.div`
@@ -69,15 +73,24 @@ const Title = styled(Text)`
   margin: 40px 0 8px;
   word-break: keep-all;
   line-height: 1.2;
+
+  @media (max-width: 576px) {
+    font-size: 32px;
+  }
 `;
 
 const Description = styled(Text)`
   color: #ccc;
+
+  @media (max-width: 576px) {
+    font-size: 16px;
+  }
 `;
 
 const StyledButton = styled(Button)`
   margin-top: 32px;
-  width: 240px;
+  width: 100%;
+  max-width: 240px;
   border-radius: 8px;
   background: white;
 `;
