@@ -1,29 +1,30 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Text from '@/components/common/Text';
 
 export interface ProgresiveBarProps {
-  label: string;
-  children?: React.ReactNode;
+  max: number;
+  current: number;
 }
 
-function ProgresiveBar({ label, children }: ProgresiveBarProps) {
+function ProgresiveBar({ max, current }: ProgresiveBarProps) {
   return (
     <ProgresiveBarBlock>
-      <Bar as="h3" fontSize="sm">
-        {label}
-      </Bar>
+      <Bar />
     </ProgresiveBarBlock>
   );
 }
 
 const ProgresiveBarBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 8px 0 16px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 4px;
+  background: ${({ theme }) => theme.palette.color.main};
 `;
 
-const Bar = styled(Text)`
+const Bar = styled.div`
   margin-bottom: 8px;
 `;
 
