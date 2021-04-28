@@ -60,7 +60,7 @@ const Title = styled(Text)`
 const Illust = styled(DocumentIllust)`
   margin: 64px 0 32px;
   width: 100%;
-  max-height: 300px;
+  max-height: 280px;
   opacity: 0.8;
 `;
 

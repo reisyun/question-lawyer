@@ -44,6 +44,7 @@ const ModalBlock = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 16px;
   padding: 32px 16px 8px;
   width: 460px;
   height: 200px;
