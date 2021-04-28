@@ -1,6 +1,6 @@
 {
-  "name": "question_tree",
-  "homepage": "https://reisyun.github.io/question_tree/",
+  "name": "question",
+  "homepage": "https://reisyun.github.io/question/",
   "version": "0.1.0",
   "private": true,
   "scripts": {
