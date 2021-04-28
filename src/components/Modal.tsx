@@ -22,7 +22,7 @@ function Modal() {
             변호사님에게 전달드렸습니다!
           </Title>
           <StyledButton variant="containe" size="medium" onClick={handleClick}>
-            확인
+            처음으로
           </StyledButton>
         </Content>
       </ModalBlock>
@@ -65,7 +65,7 @@ const Content = styled.div`
 const Illust = styled(ConfirmedIllust)`
   padding: 12px;
   width: 100%;
-  max-height: 180px;
+  max-height: 200px;
   opacity: 0.8;
 `;
 

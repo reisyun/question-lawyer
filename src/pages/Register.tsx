@@ -64,7 +64,7 @@ function Register() {
     };
 
     // 이메일 보내기
-    // await emailjs.send(EMAILJS_SERVICE_ID as string, EMAILJS_TEMPLATE_ID as string, template);
+    await emailjs.send(EMAILJS_SERVICE_ID as string, EMAILJS_TEMPLATE_ID as string, template);
 
     // 모달 열기
     setActiveModal(true);

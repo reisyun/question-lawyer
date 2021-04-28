@@ -56,7 +56,7 @@ const Title = styled(Text)`
   word-break: keep-all;
   line-height: 1.2;
 
-  @media (max-width: 768px) {
+  @media (max-width: 576px) {
     font-size: 24px;
   }
 `;
