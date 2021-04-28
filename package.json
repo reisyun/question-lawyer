@@ -1,5 +1,6 @@
 {
-  "name": "ssweb-client",
+  "name": "question_tree",
+  "homepage": "https://reisyun.github.io/question_tree/",
   "version": "0.1.0",
   "private": true,
   "scripts": {

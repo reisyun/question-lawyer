@@ -5,7 +5,6 @@ import { ThemeProvider, Global } from '@emotion/react';
 import theme from '@/styles/theme';
 import global from '@/styles/global';
 import { routes } from '@/libs/routes';
-import Layout from '@/components/Layout';
 
 function App() {
   const route = routes.map(({ path, component, exact }) => (
