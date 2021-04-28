@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useHistory } from 'react-router-dom';
-import { DocumentIllust } from '@/assets/icons';
+import { Logo } from '@/assets/icons';
 import { MAX_CONTENT_SIZE } from '@/libs/constant';
 import Text from '@/components/common/Text';
-import MainButton from '@/components/MainButton';
+import Button from '@/components/common/Button';
 
 function Info() {
   const history = useHistory();
@@ -15,16 +15,18 @@ function Info() {
 
   return (
     <InfoWrap>
-      <TitleGroup>
-        <Title as="h1" fontSize="title" bold>
-          형사법률 리스크 진단
-        </Title>
-        <Text as="p" fontSize="lg" color="secondary">
-          변호사에게 무료로 진단 받으세요!
-        </Text>
-      </TitleGroup>
-      <Illust />
-      <MainButton onClick={handleClick}>시작하기</MainButton>
+      <Content>
+        <Illust />
+        <TitleGroup>
+          <Title as="h1" color="white" fontSize="title" bold>
+            형사법률 리스크 진단
+          </Title>
+          <Description as="p" fontSize="lg">
+            변호사에게 무료로 진단 받으세요!
+          </Description>
+        </TitleGroup>
+        <StyledButton onClick={handleClick}>시작하기</StyledButton>
+      </Content>
     </InfoWrap>
   );
 }
@@ -35,11 +37,23 @@ const InfoWrap = styled.div`
   flex-flow: column wrap;
   align-items: center;
   justify-content: center;
-  margin: 40px auto;
+  margin: 0 auto;
   padding: 0 16px;
-  max-width: ${MAX_CONTENT_SIZE}px;
   width: 100%;
-  background: ${({ theme }) => theme.palette.color.white};
+  height: 100vh;
+  background: ${({ theme }) => theme.palette.color.main};
+`;
+
+const Content = styled.div`
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+`;
+
+const Illust = styled(Logo)`
+  width: 100%;
+  max-height: 300px;
+  opacity: 0.8;
 `;
 
 const TitleGroup = styled.div`
@@ -52,16 +66,20 @@ const TitleGroup = styled.div`
 `;
 
 const Title = styled(Text)`
-  margin: 16px 0 8px;
+  margin: 40px 0 8px;
   word-break: keep-all;
   line-height: 1.2;
 `;
 
-const Illust = styled(DocumentIllust)`
-  margin: 64px 0 32px;
-  width: 100%;
-  max-height: 280px;
-  opacity: 0.8;
+const Description = styled(Text)`
+  color: #ccc;
+`;
+
+const StyledButton = styled(Button)`
+  margin-top: 32px;
+  width: 240px;
+  border-radius: 8px;
+  background: white;
 `;
 
 export default Info;

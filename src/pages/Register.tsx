@@ -64,7 +64,7 @@ function Register() {
     };
 
     // 이메일 보내기
-    await emailjs.send(EMAILJS_SERVICE_ID as string, EMAILJS_TEMPLATE_ID as string, template);
+    // await emailjs.send(EMAILJS_SERVICE_ID as string, EMAILJS_TEMPLATE_ID as string, template);
 
     // 모달 열기
     setActiveModal(true);
@@ -92,6 +92,10 @@ const Illust = styled(EmailIllust)`
   max-height: 200px;
   opacity: 0.8;
   margin-bottom: 32px;
+
+  @media (max-width: 768px) {
+    max-height: 140px;
+  }
 `;
 
 export default Register;

@@ -15,7 +15,7 @@ function Header({ main, title, desc, subject }: HeaderProps) {
   const subjectEl = <Tag size="small">{subject}</Tag>;
 
   const descriptionEl = (
-    <Text as="p" fontSize="lg" color="secondary">
+    <Text as="p" color="secondary">
       {desc}
     </Text>
   );
@@ -35,8 +35,8 @@ function Header({ main, title, desc, subject }: HeaderProps) {
 
 const HeaderBlock = styled.header`
   position: relative;
-  padding-top: 40px;
-  height: 200px;
+  padding: 40px 0 8px;
+  min-height: 200px;
   background: ${({ theme }) => theme.palette.color.white};
 `;
 
@@ -45,6 +45,7 @@ const TitleGroup = styled.div`
   flex-flow: column;
   align-items: center;
   margin: 0 auto;
+  padding: 0 16px;
   max-width: ${`${MAX_CONTENT_SIZE}px`};
   width: 100%;
   text-align: center;
@@ -54,6 +55,10 @@ const Title = styled(Text)`
   margin: 16px 0 8px;
   word-break: keep-all;
   line-height: 1.2;
+
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
 `;
 
 export default Header;

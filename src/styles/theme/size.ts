@@ -12,7 +12,7 @@ const iconSize = {
   small: '16px',
   medium: '20px',
   large: '24px',
-  xlarge: '40px',
+  xlarge: '32px',
 };
 
 export type FontSizeType = typeof fontSize;

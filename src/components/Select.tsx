@@ -57,6 +57,12 @@ const SelectItem = styled(Button)`
     border: 2px solid ${({ theme }) => theme.palette.color.main};
     color: ${({ theme }) => theme.palette.color.main};
   }
+
+  @media (max-width: 768px) {
+    &:hover {
+      background: white;
+    }
+  }
 `;
 
 export default Select;

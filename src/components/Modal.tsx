@@ -1,9 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { ConfirmedIllust } from '@/assets/icons';
 import Text from '@/components/common/Text';
 import Button from '@/components/common/Button';
-import Icon from '@/components/common/Icon';
 
 function Modal() {
   const history = useHistory();
@@ -16,13 +16,15 @@ function Modal() {
   return (
     <Shadow>
       <ModalBlock>
-        <Icon icon="checkbox" size="xlarge" color="success" />
-        <Title as="p" fontSize="xl" bold>
-          이메일 전송이 완료되었습니다:)
-        </Title>
-        <StyledButton variant="containe" size="medium" onClick={handleClick}>
-          확인
-        </StyledButton>
+        <Illust />
+        <Content>
+          <Title as="p" fontSize="lg" bold>
+            변호사님에게 전달드렸습니다!
+          </Title>
+          <StyledButton variant="containe" size="medium" onClick={handleClick}>
+            확인
+          </StyledButton>
+        </Content>
       </ModalBlock>
     </Shadow>
   );
@@ -35,29 +37,50 @@ const Shadow = styled.div`
   right: 0;
   bottom: 0;
   display: flex;
+  align-items: center;
   justify-content: center;
-  padding-top: 200px;
   background: rgba(0, 0, 0, 0.4);
 `;
 
 const ModalBlock = styled.div`
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin: 16px;
-  padding: 32px 16px 8px;
   width: 460px;
-  height: 200px;
-  background: #fff;
+  max-height: 400px;
+  background: ${({ theme }) => theme.palette.color.background};
   border-radius: 8px;
   box-shadow: 2px 8px 16px rgba(0, 0, 0, 0.2);
 `;
 
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  background: white;
+`;
+
+const Illust = styled(ConfirmedIllust)`
+  padding: 12px;
+  width: 100%;
+  max-height: 180px;
+  opacity: 0.8;
+`;
+
 const Title = styled(Text)`
   margin: 8px 0 40px;
+  text-align: center;
+  word-break: keep-all;
+
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
 `;
 
 const StyledButton = styled(Button)`
+  max-width: 240px;
   width: 100%;
 `;
 

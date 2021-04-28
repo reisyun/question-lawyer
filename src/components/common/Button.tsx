@@ -60,7 +60,7 @@ const variantStyles = ({ theme, variant = 'none' }: ButtonProps & ThemeProps) =>
     outline: css`
       background: transparent;
       color: ${theme.palette.color.primary};
-      border: 1px solid ${theme.palette.divider};
+      border: 1px solid ${theme.palette.color.main};
 
       &:hover {
         background: ${theme.palette.overlay.hover};
