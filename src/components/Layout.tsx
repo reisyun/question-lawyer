@@ -27,7 +27,6 @@ const Wrapper = styled.div`
   position: relative;
   background: ${({ theme }) => theme.palette.color.background};
   min-height: 100vh;
-  height: 100%;
 
   /* decoration */
   &::before {

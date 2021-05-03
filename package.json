@@ -1,8 +1,8 @@
 {
   "name": "question",
-  "homepage": "https://reisyun.github.io/question/",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/plugins/my-react-app/frontend/build/",
   "scripts": {
     "start": "craco start",
     "build": "craco build",

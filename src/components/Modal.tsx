@@ -2,6 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { ConfirmedIllust } from '@/assets/icons';
+import letter from '@/assets/images/letter.png';
+import Image from '@/components/common/Image';
 import Text from '@/components/common/Text';
 import Button from '@/components/common/Button';
 
@@ -16,10 +18,10 @@ function Modal() {
   return (
     <Shadow>
       <ModalBlock>
-        <Illust />
+        <Illust src="http://antiwhitepig.cafe24.com/wp-content/uploads/2021/04/q-letter.png" />
         <Content>
           <Title as="p" fontSize="lg" bold>
-            변호사님에게 전달드렸습니다!
+            이메일이 성공적으로 전달됐습니다.
           </Title>
           <StyledButton variant="containe" size="medium" onClick={handleClick}>
             처음으로
@@ -62,10 +64,10 @@ const Content = styled.div`
   background: white;
 `;
 
-const Illust = styled(ConfirmedIllust)`
-  padding: 12px;
-  width: 100%;
-  max-height: 200px;
+const Illust = styled(Image)`
+  margin: 32px auto;
+  width: 60%;
+  max-height: 140px;
   opacity: 0.8;
 `;
 
@@ -74,7 +76,7 @@ const Title = styled(Text)`
   text-align: center;
   word-break: keep-all;
 
-  @media (max-width: 768px) {
+  @media (max-width: 576px) {
     font-size: 18px;
   }
 `;
@@ -82,6 +84,7 @@ const Title = styled(Text)`
 const StyledButton = styled(Button)`
   max-width: 240px;
   width: 100%;
+  height: 40px;
 `;
 
 export default Modal;

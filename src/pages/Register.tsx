@@ -6,7 +6,8 @@ import { questionFormState } from '@/atom/question';
 import { config } from '@/libs/config';
 import { isEmail } from '@/libs/utils';
 import { validateHint } from '@/libs/validateHint';
-import { EmailIllust } from '@/assets/icons/index';
+import mail from '@/assets/images/mail.png';
+import Image from '@/components/common/Image';
 import ValidationInput from '@/components/ValidationInput';
 import MainButton from '@/components/MainButton';
 import Layout from '@/components/Layout';
@@ -72,7 +73,7 @@ function Register() {
 
   return (
     <Layout main title="수고하셨습니다" desc="이메일을 입력하시면 빠르게 연락드리겠습니다!">
-      <Illust />
+      <Illust src="http://antiwhitepig.cafe24.com/wp-content/uploads/2021/04/q-mail.png" />
       <ValidationInput
         value={emailValue}
         placeholder="이메일을 입력해주세요"
@@ -87,14 +88,15 @@ function Register() {
   );
 }
 
-const Illust = styled(EmailIllust)`
-  width: 100%;
-  max-height: 200px;
+const Illust = styled(Image)`
+  width: 80%;
+  height: 200px;
   opacity: 0.8;
-  margin-bottom: 32px;
 
-  @media (max-width: 768px) {
-    max-height: 140px;
+  margin: 32px auto 48px;
+
+  @media (max-width: 576px) {
+    max-height: 160px;
   }
 `;
 

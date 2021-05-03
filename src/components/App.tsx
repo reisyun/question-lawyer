@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider, Global } from '@emotion/react';
 import theme from '@/styles/theme';

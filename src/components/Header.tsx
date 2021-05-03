@@ -57,7 +57,7 @@ const Title = styled(Text)`
   line-height: 1.2;
 
   @media (max-width: 576px) {
-    font-size: 24px;
+    font-size: 28px;
   }
 `;
 
