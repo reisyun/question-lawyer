@@ -4,30 +4,26 @@ import { MAX_CONTENT_SIZE } from '@/libs/constant';
 import Text from '@/components/common/Text';
 import Tag from '@/components/common/Tag';
 
-interface HeaderProps {
-  main?: boolean;
+export interface HeaderProps {
   title: string;
   desc?: string;
-  subject?: string;
+  tagName?: string;
+  bigTitle?: boolean;
 }
 
-function Header({ main, title, desc, subject }: HeaderProps) {
-  const subjectEl = <Tag size="small">{subject}</Tag>;
-
-  const descriptionEl = (
-    <Text as="p" color="secondary">
-      {desc}
-    </Text>
-  );
-
+function Header({ title, desc, tagName, bigTitle }: HeaderProps) {
   return (
     <HeaderBlock>
       <TitleGroup>
-        {subject && subjectEl}
-        <Title as="h1" fontSize={main ? 'title' : 'subtitle'} bold>
+        {tagName && <Tag size="small">{tagName}</Tag>}
+        <Title as="h1" fontSize={bigTitle ? 'title' : 'subtitle'} bold>
           {title}
         </Title>
-        {desc && descriptionEl}
+        {desc && (
+          <Text as="p" color="secondary">
+            {desc}
+          </Text>
+        )}
       </TitleGroup>
     </HeaderBlock>
   );

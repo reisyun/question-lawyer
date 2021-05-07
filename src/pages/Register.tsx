@@ -6,7 +6,6 @@ import { questionFormState } from '@/atom/question';
 import { config } from '@/libs/config';
 import { isEmail } from '@/libs/utils';
 import { validateHint } from '@/libs/validateHint';
-import mail from '@/assets/images/mail.png';
 import Image from '@/components/common/Image';
 import ValidationInput from '@/components/ValidationInput';
 import MainButton from '@/components/MainButton';
@@ -72,7 +71,7 @@ function Register() {
   };
 
   return (
-    <Layout main title="수고하셨습니다" desc="이메일을 입력하시면 빠르게 연락드리겠습니다!">
+    <Layout title="수고하셨습니다" desc="이메일을 입력하시면 빠르게 연락드리겠습니다!" bigTitle>
       <Illust src="http://antiwhitepig.cafe24.com/wp-content/uploads/2021/04/q-mail.png" />
       <ValidationInput
         value={emailValue}

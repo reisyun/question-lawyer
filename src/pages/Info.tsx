@@ -102,7 +102,7 @@ const StyledButton = styled(Button)`
   background: white;
 
   &:hover i {
-    animation: moveX 2s ease-in-out infinite;
+    animation: moveX 1s ease-in-out infinite;
   }
 
   @keyframes moveX {
@@ -110,7 +110,7 @@ const StyledButton = styled(Button)`
       transform: translateX(0px);
     }
     50% {
-      transform: translateX(8px);
+      transform: translateX(4px);
     }
   }
 

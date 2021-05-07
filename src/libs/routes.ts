@@ -1,5 +1,5 @@
 import Info from '@/pages/Info';
-import Home from '@/pages/Home';
+import Choice from '@/pages/Choice';
 import Question from '@/pages/Question';
 import Register from '@/pages/Register';
 
@@ -8,13 +8,13 @@ export const routes = [
     name: 'Info',
     path: '/',
     exact: true,
-    component: Info,
+    component: Question,
   },
   {
-    name: 'Home',
+    name: 'Choice',
     path: '/question',
     exact: true,
-    component: Home,
+    component: Choice,
   },
   {
     name: 'Question',

@@ -1,22 +1,18 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { MAX_CONTENT_SIZE } from '@/libs/constant';
-import Header from '@/components/Header';
+import Header, { HeaderProps } from '@/components/Header';
 
-export interface LayoutProps {
-  main?: boolean;
-  title: string;
-  desc?: string;
-  subject?: string;
+export interface LayoutProps extends HeaderProps {
   children: React.ReactNode | React.ReactNode[];
 }
 
 // TODO: header component를 합치던 하기.
 // 현재 props가 거의 header 것임
-function Layout({ main, title, desc, subject, children }: LayoutProps) {
+function Layout({ title, desc, tagName, bigTitle, children }: LayoutProps) {
   return (
     <Wrapper>
-      <Header main={main} title={title} desc={desc} subject={subject} />
+      <Header title={title} desc={desc} tagName={tagName} bigTitle={bigTitle} />
       <Content>{children}</Content>
     </Wrapper>
   );
