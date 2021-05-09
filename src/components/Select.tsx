@@ -53,9 +53,15 @@ const SelectItem = styled(Button)`
     margin-top: 0;
   }
 
+  /* focus만 할 경우 다른 곳을 클릭할 시 스타일이 사라지는 문제 보안 */
   &.selected {
     border: 2px solid ${({ theme }) => theme.palette.color.main};
     color: ${({ theme }) => theme.palette.color.main};
+  }
+
+  /* tab 버튼을 누를 경우 포커스 스타일 */
+  &:focus {
+    background: ${({ theme }) => theme.palette.overlay.hover};
   }
 
   @media (max-width: 768px) {

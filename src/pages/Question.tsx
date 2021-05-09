@@ -1,19 +1,21 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useState, useEffect } from 'react';
-import { questionData } from '@/questions';
+import { useHistory } from 'react-router-dom';
+import { useAnswerFormState } from '@/atoms/questionState';
+import { useGetQuestion } from '@/hooks/useGetQuestion';
 import Select from '@/components/Select';
 import MainButton from '@/components/MainButton';
 import TextArea from '@/components/TextArea';
 import Layout from '@/components/Layout';
 
 function Question() {
+  const history = useHistory();
   const [count, setCount] = useState<number>(0);
   const [answer, setAnswer] = useState<string>('');
 
-  const THEME = 'trafficCrime';
-  const SUBJECT = '자동차상해';
-  const questions = questionData[THEME].subjects.find(({ subject }) => subject === SUBJECT);
-  const currentQuestion = questions!.items[count];
+  const { currentSubject } = useGetQuestion();
+  const [, setAnswerForm] = useAnswerFormState();
+
+  const currentQuestion = currentSubject.items[count];
 
   /**
    * 다음 질문으로 넘어갈 때 값 초기화
@@ -22,16 +24,25 @@ function Question() {
     setAnswer('');
   }, [count]);
 
-  // const addAnswer = (answer: UserAnswer) => {
-  //   setQuestionForm(oldForm => ({
-  //     ...oldForm,
-  //     question: [...oldForm.question, answer],
-  //   }));
-  // };
-
   const nextQuestion = () => {
+    // 질문이 모두 끝나면 register page로 이동
+    if (currentSubject.items.length - 1 <= count) {
+      history.push('/register');
+      return;
+    }
+
     // 다음 버튼을 누르면 count + 1
+    // 이로써 다음 질문으로 넘어가게 됨
     setCount(prevCount => prevCount + 1);
+
+    // AnswerFormState에 답변 양식 추가
+    setAnswerForm(prev => [
+      ...prev,
+      {
+        q: currentQuestion.question.title,
+        a: answer,
+      },
+    ]);
   };
 
   // Select component
@@ -51,14 +62,13 @@ function Question() {
 
   return (
     <Layout
-      tagName={SUBJECT}
+      tagName={currentSubject.subject}
       title={currentQuestion.question.title}
       desc={currentQuestion.question.desc}
     >
       {currentQuestion.answer ? (
         <Select onClick={selectAnswer} items={currentQuestion.answer} />
       ) : (
-        // <TextareaAutosize minRows={3} maxRows={6} defaultValue="Just a single line..." />
         <TextArea value={answer} onChange={enterAnswer} />
       )}
       {/* 답변이 없을 경우 버튼 비활성화 */}

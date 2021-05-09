@@ -1,8 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { ConfirmedIllust } from '@/assets/icons';
-import letter from '@/assets/images/letter.png';
 import Image from '@/components/common/Image';
 import Text from '@/components/common/Text';
 import Button from '@/components/common/Button';

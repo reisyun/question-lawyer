@@ -1,13 +1,12 @@
 import 'react-app-polyfill/ie9';
 import 'react-app-polyfill/stable';
 import React from 'react';
-import { config } from '@/libs/config';
+// import { config } from '@/libs/config';
 import { init } from 'emailjs-com';
 import ReactDOM from 'react-dom';
 import App from '@/components/App';
-import reportWebVitals from './reportWebVitals';
 
-init(config.EMAILJS_USER_ID);
+init('user_0KyLQMYYIeHGPU6I0N4vt');
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import emailjs from 'emailjs-com';
-import { useRecoilState } from 'recoil';
-import { questionFormState } from '@/atom/question';
-import { config } from '@/libs/config';
 import { isEmail } from '@/libs/utils';
 import { validateHint } from '@/libs/validateHint';
+import { useAnswerFormState } from '@/atoms/questionState';
+import { useWriteForm } from '@/hooks/useWriteForm';
 import Image from '@/components/common/Image';
 import ValidationInput from '@/components/ValidationInput';
 import MainButton from '@/components/MainButton';
 import Layout from '@/components/Layout';
 import Modal from '@/components/Modal';
 
-const { EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID } = config;
-
 function Register() {
-  const [questionForm, setQuestionForm] = useRecoilState(questionFormState);
   const [emailValue, setEmailValue] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [activeModal, setActiveModal] = useState(false);
+  const [, setAnswerForm] = useAnswerFormState();
+  const { template, sendEmail } = useWriteForm();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -36,38 +33,14 @@ function Register() {
     }
     setIsValidEmail(false);
 
-    // 폼에 이메일 전달
-    setQuestionForm(oldQuestionForm => ({
-      ...oldQuestionForm,
-    }));
+    // 이메일을 보냄
+    sendEmail({ ...template, email: emailValue });
 
-    const qa = questionForm.question;
-    const questions = qa.map((item, idx) => ({
-      [`q${idx}`]: item.q,
-      [`a${idx}`]: item.a,
-    }));
-
-    const template = {
-      ...questionForm,
-      // TODO: flat이 안되서 수동으로함..
-      ...questions[0],
-      ...questions[1],
-      ...questions[2],
-      ...questions[3],
-      ...questions[4],
-      ...questions[5],
-      ...questions[6],
-      ...questions[7],
-      ...questions[8],
-      ...questions[9],
-      email: emailValue,
-    };
-
-    // 이메일 보내기
-    await emailjs.send(EMAILJS_SERVICE_ID as string, EMAILJS_TEMPLATE_ID as string, template);
-
-    // 모달 열기
+    // 이메일을 성공적으로 보냈다는 팝업 활성화
     setActiveModal(true);
+
+    // 답변 초기화
+    setAnswerForm([]);
   };
 
   return (

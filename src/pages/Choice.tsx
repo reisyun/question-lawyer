@@ -1,22 +1,32 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from 'react';
 import styled from '@emotion/styled';
-import { questionData } from '@/questions';
+import { useHistory } from 'react-router-dom';
+import { useThemeState, useSubjectState } from '@/atoms/questionState';
+import { useGetQuestion } from '@/hooks/useGetQuestion';
 import Button from '@/components/common/Button';
 import Layout from '@/components/Layout';
 
-function Home() {
-  const THEME = 'trafficCrime';
-  const currentQuestion = questionData[THEME];
+function Choice() {
+  const history = useHistory();
+  const { currentTheme } = useGetQuestion();
+  const [theme] = useThemeState();
+  const [, setSubject] = useSubjectState();
+
+  const selectSubject = (subject: string) => {
+    setSubject(subject);
+    history.push(`/question/${subject}`);
+  };
 
   // data에 있는 주제들을 버튼으로 생성
-  const subjectButtons = currentQuestion.subjects.map(({ subject }) => (
-    <StyledButton key={subject} variant="text" size="large" onClick={() => 'a'}>
+  const subjectButtons = currentTheme.subjects.map(({ subject }) => (
+    <StyledButton variant="text" size="large" onClick={() => selectSubject(subject)} key={subject}>
       {subject}
     </StyledButton>
   ));
 
   return (
-    <Layout title={currentQuestion.theme} desc="원하는 주제를 선택해주세요" bigTitle>
+    <Layout title={theme} desc="원하는 주제를 선택해주세요" bigTitle>
       <List>{subjectButtons}</List>
     </Layout>
   );
@@ -38,6 +48,11 @@ const StyledButton = styled(Button)`
     background: ${({ theme }) => theme.palette.color.main};
     color: white;
   }
+
+  /* tab 버튼을 누를 경우 포커스 스타일 */
+  &:focus {
+    background: ${({ theme }) => theme.palette.overlay.hover};
+  }
 `;
 
-export default Home;
+export default Choice;

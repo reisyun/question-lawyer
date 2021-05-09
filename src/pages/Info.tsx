@@ -11,7 +11,7 @@ function Info() {
   const history = useHistory();
 
   const handleClick = () => {
-    history.push('question');
+    history.push('/choice');
   };
 
   return (

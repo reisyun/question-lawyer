@@ -8,11 +8,11 @@ export const routes = [
     name: 'Info',
     path: '/',
     exact: true,
-    component: Question,
+    component: Info,
   },
   {
     name: 'Choice',
-    path: '/question',
+    path: '/choice',
     exact: true,
     component: Choice,
   },

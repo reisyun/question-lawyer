@@ -1,7 +1,4 @@
 import { trafficCrime } from '@/questions/trafficCrime';
 import { temporary } from '@/questions/temporary';
 
-export const questionData = {
-  trafficCrime,
-  temporary,
-};
+export const questionList = [trafficCrime, temporary];

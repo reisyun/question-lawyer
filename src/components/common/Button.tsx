@@ -54,7 +54,7 @@ const variantStyles = ({ theme, variant = 'none' }: ButtonProps & ThemeProps) =>
       color: ${theme.palette.color.white};
 
       &:hover {
-        background: ${lighten(0.04, theme.palette.color.main)};
+        background: ${lighten(0.1, theme.palette.color.main)};
       }
     `,
     outline: css`
