@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import { useTabs } from '@/hooks/useTabs';
 import Button from './common/Button';
@@ -11,10 +11,13 @@ interface SelectProps {
 function Select({ items, onClick }: SelectProps) {
   const [currentTab, setCurrentIndex] = useTabs(items);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, idx: number) => {
-    onClick(event);
-    setCurrentIndex(idx);
-  };
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>, idx: number) => {
+      onClick(event);
+      setCurrentIndex(idx);
+    },
+    [onClick, setCurrentIndex],
+  );
 
   const selectItem = items.map((item, idx) => (
     <SelectItem

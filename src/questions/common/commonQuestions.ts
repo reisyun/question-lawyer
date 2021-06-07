@@ -11,7 +11,4 @@ export const commonQuestions: QuestionItem[] = [
   {
     question: { title: '궁금한 내용과 추가로 설명하고 싶은 내용을 기재해주세요.' },
   },
-  {
-    question: { title: '연락처 남겨주시면 상담 전화 드리겠습니다.' },
-  },
 ];

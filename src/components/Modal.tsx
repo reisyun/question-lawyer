@@ -4,8 +4,14 @@ import styled from '@emotion/styled';
 import Image from '@/components/common/Image';
 import Text from '@/components/common/Text';
 import Button from '@/components/common/Button';
+import { Dialog, DialogContent } from '@material-ui/core';
 
-function Modal() {
+interface ModalProps {
+  open: boolean;
+  onClose?: () => void;
+}
+
+function Modal({ open, onClose }: ModalProps) {
   const history = useHistory();
 
   const handleClick = () => {
@@ -14,8 +20,8 @@ function Modal() {
   };
 
   return (
-    <Shadow>
-      <ModalBlock>
+    <Dialog open={open} onClose={onClose}>
+      <DialogContent>
         <Illust src="http://antiwhitepig.cafe24.com/wp-content/uploads/2021/04/q-letter.png" />
         <Content>
           <Title as="p" fontSize="lg" bold>
@@ -25,34 +31,10 @@ function Modal() {
             처음으로
           </StyledButton>
         </Content>
-      </ModalBlock>
-    </Shadow>
+      </DialogContent>
+    </Dialog>
   );
 }
-
-const Shadow = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.4);
-`;
-
-const ModalBlock = styled.div`
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  margin: 16px;
-  width: 460px;
-  max-height: 400px;
-  background: ${({ theme }) => theme.palette.color.background};
-  border-radius: 8px;
-  box-shadow: 2px 8px 16px rgba(0, 0, 0, 0.2);
-`;
 
 const Content = styled.div`
   display: flex;

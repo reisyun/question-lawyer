@@ -47,6 +47,15 @@ export const throttle = (callback: () => void) => {
  */
 export const isEmail = (value: string) => {
   // eslint-disable-next-line no-useless-escape
-  const regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+  const regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+  return regExp.test(value);
+};
+
+/**
+ * 전화번호 유효성 검사
+ */
+export const isPhoneNumber = (value: string) => {
+  // eslint-disable-next-line no-useless-escape
+  const regExp = /^[0-9\b -]{0,13}$/;
   return regExp.test(value);
 };

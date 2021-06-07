@@ -7,8 +7,8 @@ const color = {
   hint: '#BDBDBD',
   white: '#FFF',
   black: '#000',
-  disabled: '#E8E9EB',
-  background: '#F5F6FA',
+  disabled: rgba('#000', 0.06),
+  background: '#F0F3FB',
   success: '#27ae60',
 };
 

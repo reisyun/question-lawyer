@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styled from '@emotion/styled';
 import { useHistory } from 'react-router-dom';
 import { useAnswerFormState } from '@/atoms/questionState';
 import { useGetQuestion } from '@/hooks/useGetQuestion';
@@ -6,6 +7,7 @@ import Select from '@/components/Select';
 import MainButton from '@/components/MainButton';
 import TextArea from '@/components/TextArea';
 import Layout from '@/components/Layout';
+import { Button } from '@material-ui/core';
 
 function Question() {
   const history = useHistory();
@@ -24,7 +26,7 @@ function Question() {
     setAnswer('');
   }, [count]);
 
-  const nextQuestion = () => {
+  const nextQuestion = (e: any, skip?: boolean) => {
     // 질문이 모두 끝나면 register page로 이동
     if (currentSubject.items.length - 1 <= count) {
       history.push('/register');
@@ -40,7 +42,7 @@ function Question() {
       ...prev,
       {
         q: currentQuestion.question.title,
-        a: answer,
+        a: skip ? 'skip' : answer,
       },
     ]);
   };
@@ -72,11 +74,26 @@ function Question() {
         <TextArea value={answer} onChange={enterAnswer} />
       )}
       {/* 답변이 없을 경우 버튼 비활성화 */}
-      <MainButton disabled={!answer} onClick={nextQuestion}>
-        다음
-      </MainButton>
+      <Navigation>
+        <NextButton disabled={!answer} onClick={nextQuestion}>
+          다음
+        </NextButton>
+        <Button color="primary" onClick={() => nextQuestion(true)}>
+          건너뛰기
+        </Button>
+      </Navigation>
     </Layout>
   );
 }
+
+const Navigation = styled.footer`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const NextButton = styled(MainButton)`
+  margin-bottom: 16px;
+`;
 
 export default Question;

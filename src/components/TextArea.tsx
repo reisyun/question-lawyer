@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import TextareaAutosize from 'react-textarea-autosize';
+import { TextareaAutosize } from '@material-ui/core';
 
 export interface TextAreaProps {
   value: string;
@@ -8,7 +8,7 @@ export interface TextAreaProps {
 }
 
 function TextArea({ value, onChange, ...rest }: TextAreaProps) {
-  return <StyledTextArea value={value} onChange={onChange} minRows={8} {...rest} />;
+  return <StyledTextArea autoFocus value={value} onChange={onChange} rowsMin={8} {...rest} />;
 }
 
 const StyledTextArea = styled(TextareaAutosize)`
