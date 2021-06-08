@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import person from '@/assets/images/person.png';
 import Text from '@/components/common/Text';
 import { withStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+import { ButtonGroup, Button, Link } from '@material-ui/core';
 import Icon from '@/components/common/Icon';
 
 function Info() {
@@ -16,9 +16,8 @@ function Info() {
 
   return (
     <InfoWrap>
-      <PersonImage src={person} />
       <Header>
-        <Inner>
+        <HeaderInner>
           <Point>
             <Text fontSize="md" color="main" bold>
               형사 전문 변호사에게 직접 물어보세요!
@@ -37,41 +36,93 @@ function Info() {
             variant="contained"
             size="large"
             endIcon={<Icon icon="arrow" color="main" />}
+            onClick={handleClick}
           >
             시작하기
           </StyledButton>
-        </Inner>
+        </HeaderInner>
       </Header>
+      <Bottom>
+        <BottomInner>
+          <NameGroup>
+            <Text fontSize="lg" color="main">
+              형사전문변호사
+            </Text>
+            <Text fontSize="subtitle" color="main" bold>
+              김기윤
+            </Text>
+          </NameGroup>
+          <MuiButtonGroup
+            // orientation="vertical"
+            variant="text"
+            size="large"
+            color="primary"
+          >
+            <Button startIcon={<Icon icon="call" size="medium" color="main" />}>
+              <Link href="tel:025222218" target="_blank" rel="noopener">
+                02-522-2218
+              </Link>
+            </Button>
+            <Button startIcon={<Icon icon="chat" size="medium" color="main" />}>
+              <Link href="https://pf.kakao.com/_Dkaxixd/chat" target="_blank" rel="noopener">
+                카톡상담
+              </Link>
+            </Button>
+            <Button startIcon={<Icon icon="info" size="medium" color="main" />}>
+              <Link
+                href="https://blog.naver.com/hopelawpasan/222377220296"
+                target="_blank"
+                rel="noopener"
+              >
+                변호사 소개
+              </Link>
+            </Button>
+          </MuiButtonGroup>
+        </BottomInner>
+      </Bottom>
+      <PersonImage src={person} />
     </InfoWrap>
   );
 }
 
+const PersonImage = styled.img`
+  object-fit: contain;
+  object-position: right bottom;
+  position: fixed;
+  right: 0;
+  bottom: -140px;
+  width: 90vh;
+  height: 100vw;
+  max-height: 1200px;
+  min-height: 800px;
+
+  @media (max-width: 1200px) {
+    right: -6vw;
+  }
+`;
+
 const InfoWrap = styled.main`
+  position: relative;
+  overflow: hidden;
   width: 100vw;
   height: 100vh;
   background: ${({ theme }) => theme.palette.color.background};
-`;
 
-const PersonImage = styled.img`
-  object-fit: contain;
-  z-index: 500;
-  position: absolute;
-  right: 0;
-  bottom: -140px;
-  height: 100vw;
-  max-height: 800px;
+  @media (max-height: 600px) {
+    overflow: scroll;
+  }
 `;
 
 const Header = styled.header`
   position: relative;
   background: ${({ theme }) => theme.palette.color.main};
-  height: 70vh;
-  min-height: 240px;
+  height: 60vh;
+  min-height: 320px;
 `;
 
-const Inner = styled.div`
+const HeaderInner = styled.div`
   position: absolute;
-  top: 20vh;
+  bottom: 20vh;
   left: 10vw;
 `;
 
@@ -99,5 +150,35 @@ const StyledButton = withStyles({
     fontWeight: 'bold',
   },
 })(Button);
+
+const Bottom = styled.footer`
+  position: relative;
+`;
+
+const BottomInner = styled.div`
+  position: absolute;
+  top: 8vh;
+  left: 10vw;
+  min-height: 120px;
+`;
+
+const NameGroup = styled.div`
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 16px;
+
+  & span {
+    margin-right: 8px;
+    line-height: 1;
+  }
+`;
+
+const MuiButtonGroup = withStyles({
+  root: {
+    zIndex: 999,
+    position: 'relative',
+    background: '#F0F3FB',
+  },
+})(ButtonGroup);
 
 export default Info;

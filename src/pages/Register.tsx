@@ -190,6 +190,7 @@ const textFieldStyles = makeStyles({
   },
   input: {
     backgroundColor: 'white',
+    borderWidth: 0,
   },
 });
 
