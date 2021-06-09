@@ -20,6 +20,7 @@ export const carInjuryQuestions: QuestionSubject = {
       question: {
         title: '사고난 장소는 어떻게 되며, 사고 발생 경위를 자세히 작성해 주세요',
         desc: '교차로, 고속도로 등',
+        placeholder: '1. 사고난 장소는?\n2. 사고발생 경위는?',
       },
     },
     {
@@ -27,7 +28,10 @@ export const carInjuryQuestions: QuestionSubject = {
       answer: ['경찰 수사 전', '경찰 수사 중', '검찰 수사 중', '재판 중'],
     },
     {
-      question: { title: '사건 발생 장소와 수사 중인 경찰서(검찰, 법원)는 어디인가요?' },
+      question: {
+        title: '수사 중인 경찰서(검찰, 법원)는 어디인가요?',
+        placeholder: '수사중인 곳은?(예: OO경찰서, OO검찰청)',
+      },
     },
     ...commonQuestions,
   ],

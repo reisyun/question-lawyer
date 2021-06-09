@@ -16,6 +16,10 @@ export interface QuestionSubject {
 }
 
 export interface QuestionItem {
-  question: { title: string; desc?: string };
+  question: {
+    title: string;
+    desc?: string;
+    placeholder?: string;
+  };
   answer?: Array<string>;
 }

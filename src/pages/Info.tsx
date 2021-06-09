@@ -58,17 +58,17 @@ function Info() {
             size="large"
             color="primary"
           >
-            <Button startIcon={<Icon icon="call" size="medium" color="main" />}>
+            <LinkButton startIcon={<Icon icon="call" size="medium" color="main" />}>
               <Link href="tel:025222218" target="_blank" rel="noopener">
                 02-522-2218
               </Link>
-            </Button>
-            <Button startIcon={<Icon icon="chat" size="medium" color="main" />}>
+            </LinkButton>
+            <LinkButton startIcon={<Icon icon="chat" size="medium" color="main" />}>
               <Link href="https://pf.kakao.com/_Dkaxixd/chat" target="_blank" rel="noopener">
                 카톡상담
               </Link>
-            </Button>
-            <Button startIcon={<Icon icon="info" size="medium" color="main" />}>
+            </LinkButton>
+            <LinkButton startIcon={<Icon icon="info" size="medium" color="main" />}>
               <Link
                 href="https://blog.naver.com/hopelawpasan/222377220296"
                 target="_blank"
@@ -76,7 +76,7 @@ function Info() {
               >
                 변호사 소개
               </Link>
-            </Button>
+            </LinkButton>
           </MuiButtonGroup>
         </BottomInner>
       </Bottom>
@@ -91,7 +91,6 @@ const PersonImage = styled.img`
   position: fixed;
   right: 0;
   bottom: -140px;
-  width: 90vh;
   height: 100vw;
   max-height: 1200px;
   min-height: 800px;
@@ -165,6 +164,7 @@ const BottomInner = styled.div`
 const NameGroup = styled.div`
   display: flex;
   align-items: flex-end;
+  margin-left: 16px;
   margin-bottom: 16px;
 
   & span {
@@ -180,5 +180,11 @@ const MuiButtonGroup = withStyles({
     background: '#F0F3FB',
   },
 })(ButtonGroup);
+
+const LinkButton = withStyles({
+  root: {
+    padding: '8px 16px',
+  },
+})(Button);
 
 export default Info;

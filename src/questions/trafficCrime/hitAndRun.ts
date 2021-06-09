@@ -14,8 +14,14 @@ export const hitAndRunQuestions: QuestionSubject = {
     },
     {
       question: {
-        title: '사건 경위를 자세히 작성해 주세요.',
-        desc: '음주운전인 경우 혈중알코올수치와 적발된 횟수 기재',
+        title: '사건 경위를 자세히 작성해 주세요 01',
+        placeholder: '1. 현장적발\n2. 경찰신고\n3. 기타',
+      },
+    },
+    {
+      question: {
+        title: '사건 경위를 자세히 작성해 주세요 02',
+        placeholder: '1. 사건발생장소는?\n2. 수사중인 곳은?(예: OO경찰서, OO검찰청)',
       },
     },
     {
@@ -23,7 +29,10 @@ export const hitAndRunQuestions: QuestionSubject = {
       answer: ['경찰 수사 전', '경찰 수사 중', '검찰 수사 중', '재판 중'],
     },
     {
-      question: { title: '사건 발생 장소와 수사 중인 경찰서(검찰, 법원)는 어디인가요?' },
+      question: {
+        title: '사건 발생 장소와 수사 중인 경찰서(검찰, 법원)는 어디인가요?',
+        placeholder: '1. 사건발생장소는?\n2. 수사중인 곳은?(예: OO경찰서, OO검찰청)',
+      },
     },
     ...commonQuestions,
   ],

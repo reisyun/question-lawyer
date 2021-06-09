@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
-import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
 
 function InputButton() {
@@ -25,22 +24,17 @@ function InputButton() {
     setValue(e.target.value);
   };
 
-  return (
-    <SelectItem variant="outline" size="large" onClick={onClick}>
-      {active ? (
-        <StyledInput ref={inputElement} value={value} onChange={onChange} />
-      ) : (
-        '직접 입력하기'
-      )}
-    </SelectItem>
-  );
+  return <StyledInput placeholder="직접 입력하기" onClick={onClick} onChange={onChange} />;
 }
 
-const SelectItem = styled(Button)`
+const StyledInput = styled(Input)`
   margin-top: 16px;
   background: white;
+  height: 64px;
   /* transition 주기 위해 border-color = 투명 */
+  font-size: ${({ theme }) => theme.size.fontSize.md};
   color: ${({ theme }) => theme.palette.color.secondary};
+  text-align: center;
 
   border-color: transparent;
   border-radius: 8px;
@@ -61,21 +55,18 @@ const SelectItem = styled(Button)`
 
   /* tab 버튼을 누를 경우 포커스 스타일 */
   &:focus {
-    background: ${({ theme }) => theme.palette.overlay.hover};
+    outline: none;
+    border: 2px solid ${({ theme }) => theme.palette.color.main};
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.palette.color.secondary};
   }
 
   @media (max-width: 768px) {
     &:hover {
       background: white;
     }
-  }
-`;
-
-const StyledInput = styled(Input)`
-  background: transparent;
-
-  &:focus {
-    outline: none;
   }
 `;
 

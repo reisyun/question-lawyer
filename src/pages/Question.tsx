@@ -8,6 +8,7 @@ import Select from '@/components/Select';
 import MainButton from '@/components/MainButton';
 import TextArea from '@/components/TextArea';
 import Layout from '@/components/Layout';
+import InputButton from '@/components/InputButton';
 
 function Question() {
   const history = useHistory();
@@ -29,7 +30,7 @@ function Question() {
   const nextQuestion = (e: any, skip?: boolean) => {
     // 질문이 모두 끝나면 register page로 이동
     if (currentSubject.items.length - 1 <= count) {
-      history.push('/register');
+      history.push('/upload');
       return;
     }
 
@@ -71,8 +72,13 @@ function Question() {
       {currentQuestion.answer ? (
         <Select onClick={selectAnswer} items={currentQuestion.answer} />
       ) : (
-        <TextArea value={answer} onChange={enterAnswer} />
+        <TextArea
+          value={answer}
+          placeholder={currentQuestion.question.placeholder}
+          onChange={enterAnswer}
+        />
       )}
+      <InputButton />
       {/* 답변이 없을 경우 버튼 비활성화 */}
       <Navigation>
         <NextButton disabled={!answer} onClick={nextQuestion}>
