@@ -10,6 +10,10 @@ function Upload() {
     history.push('/register');
   };
 
+  const onChange = (file: File[]) => {
+    console.log(file);
+  };
+
   return (
     <Layout
       title="이 사건과 관련된 자료가 있다면 업로드 해주세요"
@@ -18,6 +22,7 @@ function Upload() {
       <DropzoneArea
         dropzoneText="이곳에 파일을 놓아보세요!"
         showFileNames
+        onChange={onChange}
         filesLimit={999}
         // 1e+7 = 10MB
         maxFileSize={10000000}
