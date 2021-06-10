@@ -2,11 +2,11 @@
  * 뺑소니 관련 질문 모음
  */
 
-import { QuestionSubject } from '@/questions/common/model';
+import { QuestionList } from '@/questions/common/model';
 import { commonQuestions } from '@/questions/common/commonQuestions';
 
-export const hitAndRunQuestions: QuestionSubject = {
-  subject: '뺑소니',
+export const hitAndRun: QuestionList = {
+  label: '뺑소니',
   items: [
     {
       question: { title: '다음 중 어떤 사례에 해당하는가요?' },
@@ -15,14 +15,14 @@ export const hitAndRunQuestions: QuestionSubject = {
     {
       question: {
         title: '사건 경위를 자세히 작성해 주세요 01',
-        placeholder: '1. 현장적발\n2. 경찰신고\n3. 기타',
       },
+      placeholder: '1. 현장적발\n2. 경찰신고\n3. 기타',
     },
     {
       question: {
         title: '사건 경위를 자세히 작성해 주세요 02',
-        placeholder: '1. 사건발생장소는?\n2. 수사중인 곳은?(예: OO경찰서, OO검찰청)',
       },
+      placeholder: '1. 사건발생장소는?\n2. 수사중인 곳은?(예: OO경찰서, OO검찰청)',
     },
     {
       question: { title: '경찰수사, 검찰수사, 재판단계 중 어느 단계인가요?' },
@@ -31,8 +31,8 @@ export const hitAndRunQuestions: QuestionSubject = {
     {
       question: {
         title: '사건 발생 장소와 수사 중인 경찰서(검찰, 법원)는 어디인가요?',
-        placeholder: '1. 사건발생장소는?\n2. 수사중인 곳은?(예: OO경찰서, OO검찰청)',
       },
+      placeholder: '1. 사건발생장소는?\n2. 수사중인 곳은?(예: OO경찰서, OO검찰청)',
     },
     ...commonQuestions,
   ],

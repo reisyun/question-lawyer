@@ -2,11 +2,11 @@
  * 음주운전 관련 질문 모음
  */
 
-import { QuestionSubject } from '@/questions/common/model';
+import { QuestionList } from '@/questions/common/model';
 import { commonQuestions } from '@/questions/common/commonQuestions';
 
-export const drunkDriveQuestions: QuestionSubject = {
-  subject: '음주운전',
+export const drunkDrive: QuestionList = {
+  label: '음주운전',
   items: [
     {
       question: { title: '다음 중 어떤 사례에 해당하는가요?' },
@@ -16,8 +16,8 @@ export const drunkDriveQuestions: QuestionSubject = {
       question: {
         title: '적발된 경위를 자세히 작성해주세요.',
         desc: '음주운전인 경우 혈중알코올수치와 적발된 횟수 기재',
-        placeholder: '1. 단속경위는?\n2. 수치는?\n3. 적발 횟수는?',
       },
+      placeholder: '1. 단속경위는?\n2. 수치는?\n3. 적발 횟수는?',
     },
     {
       question: {
@@ -32,8 +32,8 @@ export const drunkDriveQuestions: QuestionSubject = {
     {
       question: {
         title: '사건 발생 장소와 수사 중인 경찰서(검찰, 법원)는 어디인가요?',
-        placeholder: '1. 사건발생장소는?\n2. 수사중인 곳은?(예: OO경찰서, OO검찰청)',
       },
+      placeholder: '1. 사건발생장소는?\n2. 수사중인 곳은?(예: OO경찰서, OO검찰청)',
     },
     ...commonQuestions,
   ],

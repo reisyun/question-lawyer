@@ -17,7 +17,7 @@ function Header({ title, desc, tagName, bigTitle }: HeaderProps) {
       <TitleGroup>
         {tagName && <Tag size="small">{tagName}</Tag>}
         <Title as="h1" fontSize={bigTitle ? 'title' : 'subtitle'} bold>
-          {title}
+          {title || '선택해주세요!'}
         </Title>
         {desc && (
           <Text as="p" color="secondary">

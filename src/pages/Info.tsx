@@ -4,11 +4,13 @@ import { useHistory } from 'react-router-dom';
 import person from '@/assets/images/person.png';
 import Text from '@/components/common/Text';
 import { withStyles } from '@material-ui/core/styles';
-import { ButtonGroup, Button, Link } from '@material-ui/core';
+import { ButtonGroup, Button, Link, useMediaQuery } from '@material-ui/core';
 import Icon from '@/components/common/Icon';
 
 function Info() {
   const history = useHistory();
+  const matches960 = useMediaQuery(`(max-width: 960px)`);
+  const matches800 = useMediaQuery(`(max-width: 800px)`);
 
   const handleClick = () => {
     history.push('/choice');
@@ -19,56 +21,63 @@ function Info() {
       <Header>
         <HeaderInner>
           <Point>
-            <Text fontSize="md" color="main" bold>
+            <Text fontSize={matches800 ? 'sm' : 'md'} color="main" bold>
               형사 전문 변호사에게 직접 물어보세요!
             </Text>
           </Point>
 
           <Titles>
-            <Text fontSize="title" color="white" bold>
+            <Title fontSize="title" color="white" bold>
               형사법률 리스크 진단
-            </Text>
-            <Text fontSize="md" color="white">
+            </Title>
+            <Text fontSize={matches800 ? 'sm' : 'md'} color="white">
               법률과 관련된 고민을 쉽게 상담받아보세요
             </Text>
           </Titles>
           <StyledButton
             variant="contained"
-            size="large"
+            size={matches800 ? 'medium' : 'large'}
             endIcon={<Icon icon="arrow" color="main" />}
             onClick={handleClick}
           >
             시작하기
           </StyledButton>
         </HeaderInner>
+        <PersonImage src={person} />
       </Header>
       <Bottom>
         <BottomInner>
           <NameGroup>
-            <Text fontSize="lg" color="main">
+            <Text fontSize={matches800 ? 'md' : 'lg'} color="main">
               형사전문변호사
             </Text>
-            <Text fontSize="subtitle" color="main" bold>
+            <Text fontSize={matches800 ? 'xl' : 'subtitle'} color="main" bold>
               김기윤
             </Text>
           </NameGroup>
           <MuiButtonGroup
-            // orientation="vertical"
             variant="text"
+            orientation={matches960 ? 'vertical' : 'horizontal'}
             size="large"
             color="primary"
           >
-            <LinkButton startIcon={<Icon icon="call" size="medium" color="main" />}>
+            <LinkButton
+              startIcon={<Icon icon="call" size={matches800 ? 'small' : 'medium'} color="main" />}
+            >
               <Link href="tel:025222218" target="_blank" rel="noopener">
                 02-522-2218
               </Link>
             </LinkButton>
-            <LinkButton startIcon={<Icon icon="chat" size="medium" color="main" />}>
+            <LinkButton
+              startIcon={<Icon icon="chat" size={matches800 ? 'small' : 'medium'} color="main" />}
+            >
               <Link href="https://pf.kakao.com/_Dkaxixd/chat" target="_blank" rel="noopener">
                 카톡상담
               </Link>
             </LinkButton>
-            <LinkButton startIcon={<Icon icon="info" size="medium" color="main" />}>
+            <LinkButton
+              startIcon={<Icon icon="info" size={matches800 ? 'small' : 'medium'} color="main" />}
+            >
               <Link
                 href="https://blog.naver.com/hopelawpasan/222377220296"
                 target="_blank"
@@ -80,23 +89,28 @@ function Info() {
           </MuiButtonGroup>
         </BottomInner>
       </Bottom>
-      <PersonImage src={person} />
     </InfoWrap>
   );
 }
 
 const PersonImage = styled.img`
   object-fit: contain;
-  object-position: right bottom;
+  object-position: top right;
   position: fixed;
-  right: 0;
+  left: auto;
+  right: 4vw;
   bottom: -140px;
-  height: 100vw;
-  max-height: 1200px;
-  min-height: 800px;
+  max-height: 1000px;
+  height: 90vh;
+  min-height: 600px;
 
-  @media (max-width: 1200px) {
-    right: -6vw;
+  @media (max-width: 800px) {
+    max-height: 100vh;
+  }
+  @media (min-width: 1200px) {
+    right: auto;
+    left: 66vw;
+    max-height: 100vw;
   }
 `;
 
@@ -121,8 +135,8 @@ const Header = styled.header`
 
 const HeaderInner = styled.div`
   position: absolute;
-  bottom: 20vh;
   left: 10vw;
+  bottom: 12vh;
 `;
 
 const Point = styled.div`
@@ -130,6 +144,10 @@ const Point = styled.div`
   padding: 8px 32px;
   background: rgba(255, 255, 255, 0.6);
   border-radius: 24px;
+
+  @media (max-width: 800px) {
+    padding: 6px 24px;
+  }
 `;
 
 const Titles = styled.div`
@@ -138,11 +156,17 @@ const Titles = styled.div`
   margin-top: 4px;
 `;
 
+const Title = styled(Text)`
+  @media (max-width: 800px) {
+    font-size: 36px;
+  }
+`;
+
 const StyledButton = withStyles({
   root: {
+    zIndex: 999,
     marginTop: 40,
     background: 'white',
-    width: 160,
   },
   label: {
     color: '#273C75',
@@ -158,7 +182,10 @@ const BottomInner = styled.div`
   position: absolute;
   top: 8vh;
   left: 10vw;
+  padding: 24px 16px;
   min-height: 120px;
+  background: #f0f3fb;
+  border-radius: 16px;
 `;
 
 const NameGroup = styled.div`
@@ -169,7 +196,11 @@ const NameGroup = styled.div`
 
   & span {
     margin-right: 8px;
-    line-height: 1;
+    line-height: 1.2;
+  }
+
+  @media (max-width: 800px) {
+    flex-direction: column;
   }
 `;
 
@@ -177,7 +208,6 @@ const MuiButtonGroup = withStyles({
   root: {
     zIndex: 999,
     position: 'relative',
-    background: '#F0F3FB',
   },
 })(ButtonGroup);
 

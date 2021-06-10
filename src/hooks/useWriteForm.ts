@@ -1,10 +1,11 @@
 import emailjs from 'emailjs-com';
-import { useThemeState, useSubjectState, useAnswerFormState } from '@/atoms/questionState';
+import { useThemeState, useSubjectState } from '@/atoms/questionState';
+import { useAnswerState } from '@/atoms/answerState';
 
 export function useWriteForm() {
   const [theme] = useThemeState();
   const [subject] = useSubjectState();
-  const [answerForm] = useAnswerFormState();
+  const [answerForm] = useAnswerState();
 
   const answer = answerForm
     .map(
@@ -17,7 +18,7 @@ export function useWriteForm() {
     .join('<br /><br />');
 
   const template = {
-    theme,
+    theme: theme.name,
     subject,
     answer,
   };

@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { makeStyles } from '@material-ui/core/styles';
 import { isEmail, isPhoneNumber } from '@/libs/utils';
 import { validateHint } from '@/libs/validateHint';
-import { useAnswerFormState } from '@/atoms/questionState';
+import { useAnswerState } from '@/atoms/answerState';
 import { useWriteForm } from '@/hooks/useWriteForm';
 import { TextField, FormControlLabel, Checkbox, Typography } from '@material-ui/core';
 // import Image from '@/components/common/Image';
@@ -17,7 +17,7 @@ function Register() {
   const classes = textFieldStyles();
   const [openModal, setOpenModal] = useState(false);
   const [agreed, setAgreed] = useState(false);
-  const [, setAnswerForm] = useAnswerFormState();
+  const [, setAnswerForm] = useAnswerState();
   const { template, sendEmail } = useWriteForm();
   const [inputs, setInputs] = useState({
     phone: '',
@@ -97,21 +97,17 @@ function Register() {
     event.preventDefault();
 
     // 이메일을 보냄
-    // sendEmail({
-    //   ...template,
-    //   phone,
-    //   email,
-    // });
+    sendEmail({
+      ...template,
+      phone,
+      email,
+    });
 
     // 이메일을 성공적으로 보냈다면 모달 오픈
     setOpenModal(true);
 
     // 답변 초기화
     setAnswerForm([]);
-  };
-
-  const handleClose = () => {
-    setOpenModal(false);
   };
 
   return (
@@ -168,7 +164,7 @@ function Register() {
         개인정보의 보유 및 이용 기간은 동의 일로부터 상담 시까지이며, 삭제 요청 시 당사자는
         개인정보를 재생이 불가능한 방법으로 즉시 파기합니다.
       </Typography>
-      {openModal ? <Modal open={openModal} onClose={handleClose} /> : null}
+      {openModal ? <Modal open={openModal} /> : null}
     </Layout>
   );
 }

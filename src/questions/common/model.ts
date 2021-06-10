@@ -5,13 +5,8 @@
  * answer ? `Select type` : `Input type`
  */
 
-export interface QuestionTheme {
-  theme: string;
-  subjects: QuestionSubject[];
-}
-
-export interface QuestionSubject {
-  subject: string;
+export interface QuestionList {
+  label: string;
   items: QuestionItem[];
 }
 
@@ -19,7 +14,7 @@ export interface QuestionItem {
   question: {
     title: string;
     desc?: string;
-    placeholder?: string;
   };
   answer?: Array<string>;
+  placeholder?: string;
 }

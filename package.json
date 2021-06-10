@@ -2,6 +2,7 @@
   "name": "question",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://reisyun.github.io/question/",
   "scripts": {
     "start": "craco start",
     "build": "craco build",

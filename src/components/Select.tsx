@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { useTabs } from '@/hooks/useTabs';
@@ -9,22 +9,19 @@ import Input from '@/components/common/Input';
 interface SelectProps {
   items: Array<string>;
   onClick: React.MouseEventHandler<HTMLElement>;
+  onChange: React.ChangeEventHandler<HTMLElement>;
 }
 
-function Select({ items, onClick }: SelectProps) {
+function Select({ items, onClick, onChange }: SelectProps) {
   const [currentTab, setCurrentIndex] = useTabs(items);
-  const [value, setValue] = useState('');
 
-  const handleClick = useCallback(
-    (event: React.MouseEvent<HTMLElement>, idx: number) => {
-      onClick(event);
-      setCurrentIndex(idx);
-    },
-    [onClick, setCurrentIndex],
-  );
+  const handleClick = (event: React.MouseEvent<HTMLElement>, idx: number) => {
+    onClick(event);
+    setCurrentIndex(idx);
+  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(event);
   };
 
   const selectButton = items.map((item, idx) =>

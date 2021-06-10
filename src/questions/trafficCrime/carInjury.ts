@@ -2,11 +2,11 @@
  * 자동차상해 관련 질문 모음
  */
 
-import { QuestionSubject } from '@/questions/common/model';
+import { QuestionList } from '@/questions/common/model';
 import { commonQuestions } from '@/questions/common/commonQuestions';
 
-export const carInjuryQuestions: QuestionSubject = {
-  subject: '자동차상해',
+export const carInjury: QuestionList = {
+  label: '자동차상해',
   items: [
     {
       question: { title: '다음 중 어느 유형에 해당하나요?' },
@@ -21,8 +21,8 @@ export const carInjuryQuestions: QuestionSubject = {
       question: {
         title: '사고난 장소는 어떻게 되며, 사고 발생 경위를 자세히 작성해 주세요',
         desc: '교차로, 고속도로 등',
-        placeholder: '1. 사고난 장소는?\n2. 사고발생 경위는?',
       },
+      placeholder: '1. 사고난 장소는?\n2. 사고발생 경위는?',
     },
     {
       question: { title: '경찰수사, 검찰수사, 재판단계 중 어느 단계인가요?' },
@@ -31,8 +31,8 @@ export const carInjuryQuestions: QuestionSubject = {
     {
       question: {
         title: '수사 중인 경찰서(검찰, 법원)는 어디인가요?',
-        placeholder: '수사중인 곳은?(예: OO경찰서, OO검찰청)',
       },
+      placeholder: '수사중인 곳은?(예: OO경찰서, OO검찰청)',
     },
     ...commonQuestions,
   ],

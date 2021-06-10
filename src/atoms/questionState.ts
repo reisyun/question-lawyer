@@ -1,23 +1,40 @@
-import { atom, useRecoilState } from 'recoil';
+import { atom, selector, useRecoilState, useRecoilValue } from 'recoil';
+import { QuestionList } from '@/questions/common/model';
+import { questions } from '@/questions';
 
-export type AnswerType = {
-  q: string;
-  a: string;
+export type ThemeType = {
+  key: keyof typeof questions;
+  name: string;
 };
 
-export const themeState = atom<string>({
+export type SubjectType = string;
+
+export type QuestionType = QuestionList;
+
+export const themeState = atom<ThemeType>({
   key: 'themeState',
-  default: '교통범죄',
+  default: {
+    key: 'trafficCrime',
+    name: '교통범죄',
+  },
 });
 
-export const subjectState = atom<string>({
+export const subjectState = atom<SubjectType>({
   key: 'subjectState',
-  default: '음주운전',
+  default: 'drinkDrive',
 });
 
-export const answerFormState = atom<AnswerType[]>({
-  key: 'answerState',
-  default: [],
+export const qeustionSelector = selector<QuestionType | null | undefined>({
+  key: 'qeustionState',
+  get: ({ get }) => {
+    const theme = get(themeState);
+    const subject = get(subjectState);
+
+    if (!theme || !subject) return null;
+
+    // theme과 subject를 선택 했을 경우에만 질문 내보냄
+    return questions[theme.key].subjects.find(({ label }) => label === subject);
+  },
 });
 
 export function useThemeState() {
@@ -28,6 +45,6 @@ export function useSubjectState() {
   return useRecoilState(subjectState);
 }
 
-export function useAnswerFormState() {
-  return useRecoilState(answerFormState);
+export function useGetQuestion() {
+  return useRecoilValue(qeustionSelector);
 }

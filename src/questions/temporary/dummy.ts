@@ -2,11 +2,11 @@
  * 자동차상해 관련 질문 모음
  */
 
-import { QuestionSubject } from '@/questions/common/model';
+import { QuestionList } from '@/questions/common/model';
 import { commonQuestions } from '@/questions/common/commonQuestions';
 
-export const dummyQuestions: QuestionSubject = {
-  subject: '임시 데이터',
+export const dummy: QuestionList = {
+  label: '임시 데이터',
   items: [
     {
       question: { title: '다음 중 어느 유형에 해당하나요?' },
