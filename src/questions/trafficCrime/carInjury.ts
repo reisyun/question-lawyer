@@ -14,6 +14,7 @@ export const carInjuryQuestions: QuestionSubject = {
         '음주사고 발생',
         '12대 중과실 사고 (신호위반, 중앙선 침범, 속도위반, 횡단보도, 어린이 보호구역 등)',
         '단순교통사고',
+        '#input', // 인풋 삽입
       ],
     },
     {

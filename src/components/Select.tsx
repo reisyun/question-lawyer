@@ -1,37 +1,55 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { useTabs } from '@/hooks/useTabs';
-import Button from './common/Button';
+import { ThemeProps } from '@/styles/theme';
+import Button from '@/components/common/Button';
+import Input from '@/components/common/Input';
 
 interface SelectProps {
   items: Array<string>;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: React.MouseEventHandler<HTMLElement>;
 }
 
 function Select({ items, onClick }: SelectProps) {
   const [currentTab, setCurrentIndex] = useTabs(items);
+  const [value, setValue] = useState('');
 
   const handleClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>, idx: number) => {
+    (event: React.MouseEvent<HTMLElement>, idx: number) => {
       onClick(event);
       setCurrentIndex(idx);
     },
     [onClick, setCurrentIndex],
   );
 
-  const selectItem = items.map((item, idx) => (
-    <SelectItem
-      key={item}
-      variant="outline"
-      size="large"
-      onClick={e => handleClick(e, idx)}
-      className={item === currentTab ? 'selected' : ''}
-    >
-      {item}
-    </SelectItem>
-  ));
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
 
-  return <SelectBlock>{selectItem}</SelectBlock>;
+  const selectButton = items.map((item, idx) =>
+    item === '#input' ? (
+      <SelectInput
+        key={item}
+        placeholder="직접 입력하기"
+        onClick={e => handleClick(e, idx)}
+        onChange={handleChange}
+        className={item === currentTab ? 'selected' : ''}
+      />
+    ) : (
+      <SelectButton
+        key={item}
+        variant="outline"
+        size="large"
+        onClick={e => handleClick(e, idx)}
+        className={item === currentTab ? 'selected' : ''}
+      >
+        {item}
+      </SelectButton>
+    ),
+  );
+
+  return <SelectBlock>{selectButton}</SelectBlock>;
 }
 
 const SelectBlock = styled.div`
@@ -39,11 +57,11 @@ const SelectBlock = styled.div`
   flex-direction: column;
 `;
 
-const SelectItem = styled(Button)`
+const baseStyle = ({ theme }: ThemeProps) => css`
   margin-top: 16px;
   background: white;
   /* transition 주기 위해 border-color = 투명 */
-  color: ${({ theme }) => theme.palette.color.secondary};
+  color: ${theme.palette.color.secondary};
 
   border-color: transparent;
   border-radius: 8px;
@@ -52,25 +70,46 @@ const SelectItem = styled(Button)`
 
   transition: border-color 0.2s, font-weight 0.2s, color 0.2s;
 
-  &:first-of-type {
-    margin-top: 0;
-  }
-
   /* focus만 할 경우 다른 곳을 클릭할 시 스타일이 사라지는 문제 보안 */
   &.selected {
-    border: 2px solid ${({ theme }) => theme.palette.color.main};
-    color: ${({ theme }) => theme.palette.color.main};
+    border: 2px solid ${theme.palette.color.main};
+    color: ${theme.palette.color.main};
   }
 
   /* tab 버튼을 누를 경우 포커스 스타일 */
   &:focus {
-    background: ${({ theme }) => theme.palette.overlay.hover};
+    background: ${theme.palette.overlay.focus};
   }
 
   @media (max-width: 768px) {
     &:hover {
       background: white;
     }
+  }
+`;
+
+const SelectButton = styled(Button)`
+  ${baseStyle}
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+`;
+const SelectInput = styled(Input)`
+  ${baseStyle};
+  height: 64px;
+  font-size: ${({ theme }) => theme.size.fontSize.md};
+  color: ${({ theme }) => theme.palette.color.secondary};
+  text-align: center;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.palette.color.secondary};
+  }
+
+  &:focus {
+    outline: none;
+    border: 2px solid ${({ theme }) => theme.palette.color.main};
+    color: ${({ theme }) => theme.palette.color.main};
   }
 `;
 
