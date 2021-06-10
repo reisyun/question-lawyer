@@ -15,8 +15,8 @@ const color = {
 const divider = rgba(color.black, 0.12);
 
 const overlay = {
-  hover: rgba(color.black, 0.03),
-  focus: rgba(color.black, 0.12),
+  hover: rgba(color.black, 0.02),
+  focus: rgba(color.black, 0.03),
   selected: rgba(color.main, 0.08),
   activated: rgba(color.main, 0.12),
 };
