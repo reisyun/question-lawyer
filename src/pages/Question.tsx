@@ -8,7 +8,6 @@ import Select from '@/components/Select';
 import MainButton from '@/components/MainButton';
 import TextArea from '@/components/TextArea';
 import Layout from '@/components/Layout';
-import InputButton from '@/components/InputButton';
 
 function Question() {
   const history = useHistory();
@@ -49,7 +48,7 @@ function Question() {
   };
 
   // Select component
-  const selectAnswer = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const selectAnswer = (event: React.MouseEvent<HTMLElement>) => {
     const select = event.target as HTMLDivElement;
     const selectedValue = select.innerText;
 
@@ -78,7 +77,6 @@ function Question() {
           onChange={enterAnswer}
         />
       )}
-      <InputButton />
       {/* 답변이 없을 경우 버튼 비활성화 */}
       <Navigation>
         <NextButton disabled={!answer} onClick={nextQuestion}>
