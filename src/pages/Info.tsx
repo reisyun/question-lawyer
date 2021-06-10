@@ -100,19 +100,25 @@ const InfoWrap = styled.main`
 `;
 
 const PersonImage = styled.img`
-  z-index: 99;
+  z-index: -1;
   -webkit-user-drag: none;
   object-fit: contain;
   object-position: right bottom;
-  position: absolute;
-  right: 40px;
-  bottom: -65vh;
-  height: 90vh;
-  max-height: 1500px;
 
-  @media (max-width: 700px) {
-    height: 120vw;
-    min-height: 500px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  height: 90vh;
+  min-height: 600px;
+  max-height: 1000px;
+
+  @media (max-width: 800px) {
+    max-height: 60vh;
+  }
+
+  @media (min-width: 1200px) {
+    max-height: 100vw;
   }
 `;
 
@@ -131,6 +137,10 @@ const Inner = styled.div`
   width: 100%;
   max-width: 900px;
   transform: translate(-50%, -50%);
+
+  @media (min-width: 1200px) {
+    max-width: 1080px;
+  }
 `;
 
 const Point = styled.div`
