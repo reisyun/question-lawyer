@@ -8,7 +8,6 @@ import { validateHint } from '@/libs/validateHint';
 import { useAnswerState } from '@/atoms/answerState';
 import { useWriteForm } from '@/hooks/useWriteForm';
 import { TextField, FormControlLabel, Checkbox, Typography } from '@material-ui/core';
-// import Image from '@/components/common/Image';
 import MainButton from '@/components/MainButton';
 import Layout from '@/components/Layout';
 import Modal from '@/components/Modal';
@@ -29,6 +28,9 @@ function Register() {
   });
   const { phone, email } = inputs;
 
+  /**
+   * 전화번호를 특정 조건에서 자동으로 정렬
+   */
   useEffect(() => {
     if (phone.length === 10) {
       setInputs(prev => ({
@@ -55,37 +57,25 @@ function Register() {
       [name]: value,
     }));
 
+    const changeValidate = () => setValidate(prev => ({ ...prev, [name]: isEmpty }));
+
     // 실시간 유효성 검사
     if (name === 'phone') {
-      setTimeout(
-        () =>
-          check(
-            'phone',
-            () => value.length >= 10 && isPhoneNumber(value),
-            () => setValidate(prev => ({ ...prev, phone: isEmpty })),
-          ),
-        refresh,
-      );
+      const rule = value.length >= 10 && isPhoneNumber(value);
+      setTimeout(() => check('phone', rule, changeValidate), refresh);
     }
 
     if (name === 'email') {
-      setTimeout(
-        () =>
-          check(
-            'email',
-            () => isEmail(value),
-            () => setValidate(prev => ({ ...prev, email: isEmpty })),
-          ),
-        refresh,
-      );
+      const rule = isEmail(value);
+      setTimeout(() => check('email', rule, changeValidate), refresh);
     }
   };
 
   /**
    * 유효성 검사
    */
-  const check = (name: 'phone' | 'email', validation: () => boolean, cb: () => void) => {
-    if (!validation()) {
+  const check = (name: 'phone' | 'email', validation: boolean, cb: () => void) => {
+    if (!validation) {
       setValidate(prev => ({ ...prev, [name]: false }));
       cb();
       return;
@@ -96,6 +86,12 @@ function Register() {
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
+    const data = {
+      ...template,
+      phone,
+      email,
+    };
+
     // 이메일을 보냄
     sendEmail({
       ...template,
@@ -104,15 +100,14 @@ function Register() {
     });
 
     // 이메일을 성공적으로 보냈다면 모달 오픈
-    setOpenModal(true);
+    // setOpenModal(true);
 
     // 답변 초기화
-    setAnswerForm([]);
+    // setAnswerForm([]);
   };
 
   return (
     <Layout title="수고하셨습니다" desc="연락처를 입력해 주시면 빠르게 연락드리겠습니다!" bigTitle>
-      {/* <Illust src="http://antiwhitepig.cafe24.com/wp-content/uploads/2021/04/q-mail.png" /> */}
       <form>
         <TextField
           name="phone"
@@ -168,17 +163,6 @@ function Register() {
     </Layout>
   );
 }
-
-// const Illust = styled(Image)`
-//   margin: 32px auto 40px;
-//   width: 80%;
-//   height: 200px;
-//   opacity: 0.8;
-
-//   @media (max-width: 576px) {
-//     max-height: 160px;
-//   }
-// `;
 
 const textFieldStyles = makeStyles({
   root: {
