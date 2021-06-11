@@ -1,17 +1,22 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import { useHistory } from 'react-router-dom';
+import { useFileState } from '@/atoms/answerState';
 import { DropzoneArea } from 'material-ui-dropzone';
+import { Button } from '@material-ui/core';
 import Layout from '@/components/Layout';
 import MainButton from '@/components/MainButton';
 
 function Upload() {
   const history = useHistory();
+  const [files, setFiles] = useFileState();
+
   const onClick = () => {
     history.push('/register');
   };
 
   const onChange = (file: File[]) => {
-    console.log(file);
+    setFiles(file);
   };
 
   return (
@@ -27,9 +32,26 @@ function Upload() {
         // 1e+7 = 10MB
         maxFileSize={10000000}
       />
-      <MainButton onClick={onClick}>다음</MainButton>
+      <Navigation>
+        <NextButton disabled={!files.length} onClick={onClick}>
+          다음
+        </NextButton>
+        <Button color="primary" onClick={onClick}>
+          건너뛰기
+        </Button>
+      </Navigation>
     </Layout>
   );
 }
+
+const NextButton = styled(MainButton)`
+  margin-bottom: 16px;
+`;
+
+const Navigation = styled.footer`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export default Upload;
