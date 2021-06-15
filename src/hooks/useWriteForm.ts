@@ -1,6 +1,3 @@
-import { useEffect } from 'react';
-import emailjs from 'emailjs-com';
-import { config } from '@/libs/config';
 import { useThemeState, useSubjectState } from '@/atoms/questionState';
 import { useAnswerState, useFileState } from '@/atoms/answerState';
 

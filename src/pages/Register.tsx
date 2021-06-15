@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-unescaped-entities */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { makeStyles } from '@material-ui/core/styles';
 import { isEmail, isPhoneNumber } from '@/libs/utils';
@@ -13,7 +13,10 @@ import Layout from '@/components/Layout';
 import Modal from '@/components/Modal';
 
 function Register() {
+  const formAction =
+    'https://script.google.com/macros/s/AKfycbzKWNGuvXKCOrsZlHaWALnO_QQajM7MwrhoqBOq/exec?callback=loadData';
   const classes = textFieldStyles();
+  const formElement = useRef<HTMLFormElement>(null);
   const [openModal, setOpenModal] = useState(false);
   const [agreed, setAgreed] = useState(false);
   const [, setAnswerForm] = useAnswerState();
@@ -83,24 +86,35 @@ function Register() {
     setValidate(prev => ({ ...prev, [name]: true }));
   };
 
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    // event.preventDefault();
 
-    const data = {
-      ...template,
-      phone,
-      email,
-    };
+    const formData = new FormData();
+    formData.append('phone', phone);
+    formData.append('email', email);
+    formData.append('theme', template.theme);
+    formData.append('subject', template.subject);
+    formData.append('answer', template.answer);
+
+    // await fetch(formAction, {
+    //   method: 'POST',
+    //   mode: 'cors',
+    //   cache: 'no-cache',
+    //   headers: { 'Content-Type': 'multipart/form-data' },
+    //   body: formData,
+    // })
+    //   .then(console.log)
+    //   .catch(console.error);
 
     // 이메일을 보냄
-    sendEmail({
-      ...template,
-      phone,
-      email,
-    });
+    // sendEmail({
+    //   ...template,
+    //   phone,
+    //   email,
+    // });
 
     // 이메일을 성공적으로 보냈다면 모달 오픈
-    // setOpenModal(true);
+    setOpenModal(true);
 
     // 답변 초기화
     // setAnswerForm([]);
@@ -108,7 +122,7 @@ function Register() {
 
   return (
     <Layout title="수고하셨습니다" desc="연락처를 입력해 주시면 빠르게 연락드리겠습니다!" bigTitle>
-      <form>
+      <form method="post" action={formAction} target="screenInvisible" onSubmit={handleSubmit}>
         <TextField
           name="phone"
           className={classes.root}
@@ -144,14 +158,35 @@ function Register() {
           value={inputs.email}
           onChange={handleChange}
         />
+        <input
+          name="theme"
+          value={template.theme}
+          onChange={() => null}
+          style={{ display: 'none' }}
+        />
+        <input
+          name="subject"
+          value={template.subject}
+          onChange={() => null}
+          style={{ display: 'none' }}
+        />
+        <input
+          name="answer"
+          value={template.answer}
+          onChange={() => null}
+          style={{ display: 'none' }}
+        />
+        <FormControlLabel
+          label="개인정보 수집 및 이용에 동의합니다."
+          control={
+            <Checkbox color="primary" checked={agreed} onChange={() => setAgreed(!agreed)} />
+          }
+        />
+        <SubmitButton type="submit" disabled={!(agreed && inputs.phone && validate.phone)}>
+          제출
+        </SubmitButton>
       </form>
-      <FormControlLabel
-        label="개인정보 수집 및 이용에 동의합니다."
-        control={<Checkbox color="primary" checked={agreed} onChange={() => setAgreed(!agreed)} />}
-      />
-      <SubmitButton onClick={handleSubmit} disabled={!(agreed && inputs.phone && validate.phone)}>
-        제출
-      </SubmitButton>
+
       <Typography color="textSecondary" variant="caption">
         수집하는 개인정보 항목은 '연락처', '이메일'로 개인정보의 수집 및 이용 목적은 법률상담을
         목적으로만 사용합니다.
@@ -160,6 +195,9 @@ function Register() {
         개인정보를 재생이 불가능한 방법으로 즉시 파기합니다.
       </Typography>
       {openModal ? <Modal open={openModal} /> : null}
+
+      {/* TODO: hack인데, 폼 전송 시 Google 스프레드시트로 화면이 전환되는 경우 없앰 */}
+      <iframe style={{ display: 'none' }} title="submitpage" name="screenInvisible" />
     </Layout>
   );
 }

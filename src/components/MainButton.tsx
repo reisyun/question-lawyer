@@ -4,14 +4,22 @@ import { lighten } from 'polished';
 import Button from '@/components/common/Button';
 
 interface MainButtonProps {
+  type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children: string;
 }
 
-function MainButton({ disabled, children, ...rest }: MainButtonProps) {
+function MainButton({ type, disabled, children, onClick, ...rest }: MainButtonProps) {
   return (
-    <MainButtonBlock size="medium" variant="containe" disabled={disabled} {...rest}>
+    <MainButtonBlock
+      type={type}
+      size="medium"
+      variant="containe"
+      disabled={disabled}
+      onClick={onClick}
+      {...rest}
+    >
       {children}
     </MainButtonBlock>
   );
