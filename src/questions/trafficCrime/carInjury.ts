@@ -9,7 +9,9 @@ export const carInjury: QuestionList = {
   label: '자동차상해',
   items: [
     {
-      question: { title: '다음 중 어느 유형에 해당하나요?' },
+      question: {
+        title: '다음 중 어느 유형에 해당하나요?',
+      },
       answer: [
         '음주사고 발생',
         '12대 중과실 사고(신호위반, 중앙선 침범, 속도위반, 횡단보도, 어린이 보호구역 등)',
@@ -25,7 +27,9 @@ export const carInjury: QuestionList = {
       placeholder: '1. 사고난 장소는?\n2. 사고발생 경위는?',
     },
     {
-      question: { title: '경찰수사, 검찰수사, 재판단계 중 어느 단계인가요?' },
+      question: {
+        title: '경찰수사, 검찰수사, 재판단계 중 어느 단계인가요?',
+      },
       answer: ['경찰 수사 전', '경찰 수사 중', '검찰 수사 중', '재판 중'],
     },
     {

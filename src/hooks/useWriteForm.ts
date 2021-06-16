@@ -1,3 +1,5 @@
+import emailjs from 'emailjs-com';
+import { config } from '@/libs/config';
 import { useThemeState, useSubjectState } from '@/atoms/questionState';
 import { useAnswerState, useFileState } from '@/atoms/answerState';
 
@@ -21,20 +23,20 @@ export function useWriteForm() {
       ({ q, a }) => `
 질문: ${q}
 <br />
-답변: ${a}
+답변: ${a || 'skip'}
 `,
     )
     .join('<br /><br />');
 
   const template = {
-    theme: theme.name,
+    theme: theme?.name,
     subject,
     answer,
   };
 
   const sendEmail = async (form: any) => {
     const body = `
-<h3>${theme.name} | ${subject}</h3>
+<h3>${theme?.name} | ${subject}</h3>
 <strong>연락처: ${form.phone}</strong><br/>
 <strong>이메일: ${form.email}</strong>
 <br />
@@ -42,17 +44,10 @@ export function useWriteForm() {
 <div>${answer}</div>
 `;
 
-    // await Email.send({
-    //   SecureToken: '7fa48da1-2a0e-4d81-9c57-ded46443058b',
-    //   To: 'reisyun7@gmail.com',
-    //   From: 'ab@gm.co',
-    //   Subject: `${theme.name} | ${form.phone}`,
-    //   Body: body,
-    //   Attachments: file.map(async f => ({
-    //     name: f.name,
-    //     path: 'https://networkprogramming.files.wordpress.com/2017/11/smtpjs.png',
-    //   })) as any,
-    // }).then(message => console.log(message));
+    await emailjs.send(config.EMAILJS_SERVICE_ID, config.EMAILJS_TEMPLATE_ID, {
+      body,
+      phone: form.phone,
+    });
   };
 
   return { template, sendEmail };

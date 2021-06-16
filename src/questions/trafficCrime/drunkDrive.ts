@@ -9,7 +9,9 @@ export const drunkDrive: QuestionList = {
   label: '음주운전',
   items: [
     {
-      question: { title: '다음 중 어떤 사례에 해당하는가요?' },
+      question: {
+        title: '다음 중 어떤 사례에 해당하는가요?',
+      },
       answer: ['음주운전', '음주측정거부', '음주삼진아웃', '기타(무면허운전 등)'],
     },
     {
@@ -26,7 +28,9 @@ export const drunkDrive: QuestionList = {
       },
     },
     {
-      question: { title: '경찰수사, 검찰수사, 재판단계 중 어느 단계인가요?' },
+      question: {
+        title: '경찰수사, 검찰수사, 재판단계 중 어느 단계인가요?',
+      },
       answer: ['경찰 수사 전', '경찰 수사 중', '검찰 수사 중', '재판 중'],
     },
     {

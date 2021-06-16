@@ -59,3 +59,8 @@ export const isPhoneNumber = (value: string) => {
   const regExp = /^[0-9\b -]{0,13}$/;
   return regExp.test(value);
 };
+
+/**
+ * 모바일인지 확인하는 정규식
+ */
+export const isMobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);

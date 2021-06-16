@@ -9,7 +9,9 @@ export const hitAndRun: QuestionList = {
   label: '뺑소니',
   items: [
     {
-      question: { title: '다음 중 어떤 사례에 해당하는가요?' },
+      question: {
+        title: '다음 중 어떤 사례에 해당하는가요?',
+      },
       answer: ['사고 사실을 안 경우', '사고 사실을 알지 못한 경우', '피해자인 경우'],
     },
     {
@@ -25,7 +27,9 @@ export const hitAndRun: QuestionList = {
       placeholder: '1. 사건발생장소는?\n2. 수사중인 곳은?(예: OO경찰서, OO검찰청)',
     },
     {
-      question: { title: '경찰수사, 검찰수사, 재판단계 중 어느 단계인가요?' },
+      question: {
+        title: '경찰수사, 검찰수사, 재판단계 중 어느 단계인가요?',
+      },
       answer: ['경찰 수사 전', '경찰 수사 중', '검찰 수사 중', '재판 중'],
     },
     {

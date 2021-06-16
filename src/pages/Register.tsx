@@ -14,7 +14,7 @@ import Modal from '@/components/Modal';
 
 function Register() {
   const formAction =
-    'https://script.google.com/macros/s/AKfycbzKWNGuvXKCOrsZlHaWALnO_QQajM7MwrhoqBOq/exec?callback=loadData';
+    'https://script.google.com/macros/s/AKfycbwYLeM1HtRVtNG5CQrJVb3vCfHy_z79yGBgDvA-PWXk-xQu0Gk/exec';
   const classes = textFieldStyles();
   const formElement = useRef<HTMLFormElement>(null);
   const [openModal, setOpenModal] = useState(false);
@@ -86,15 +86,15 @@ function Register() {
     setValidate(prev => ({ ...prev, [name]: true }));
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    // event.preventDefault();
+  const handleSubmit = async (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
 
-    const formData = new FormData();
-    formData.append('phone', phone);
-    formData.append('email', email);
-    formData.append('theme', template.theme);
-    formData.append('subject', template.subject);
-    formData.append('answer', template.answer);
+    // const formData = new FormData();
+    // formData.append('phone', phone);
+    // formData.append('email', email);
+    // formData.append('theme', template.theme as string);
+    // formData.append('subject', template.subject as string);
+    // formData.append('answer', template.answer);
 
     // await fetch(formAction, {
     //   method: 'POST',
@@ -107,85 +107,67 @@ function Register() {
     //   .catch(console.error);
 
     // 이메일을 보냄
-    // sendEmail({
-    //   ...template,
-    //   phone,
-    //   email,
-    // });
+    await sendEmail({
+      ...template,
+      phone,
+      email,
+    });
 
     // 이메일을 성공적으로 보냈다면 모달 오픈
     setOpenModal(true);
 
     // 답변 초기화
-    // setAnswerForm([]);
+    setAnswerForm([]);
   };
 
   return (
     <Layout title="수고하셨습니다" desc="연락처를 입력해 주시면 빠르게 연락드리겠습니다!" bigTitle>
-      <form method="post" action={formAction} target="screenInvisible" onSubmit={handleSubmit}>
-        <TextField
-          name="phone"
-          className={classes.root}
-          inputProps={{ className: classes.input }}
-          required
-          fullWidth
-          variant="filled"
-          label="전화번호"
-          placeholder="전화번호를 입력해주세요."
-          helperText={!validate.phone && validateHint.phone}
-          error={!validate.phone}
-          value={inputs.phone}
-          onChange={handleChange}
-        />
-        <TextField
-          name="email"
-          className={classes.root}
-          inputProps={{ className: classes.input }}
-          fullWidth
-          variant="filled"
-          label="이메일"
-          helperText={
-            // 만약 이메일을 입력하지 않았으면 '이메일은 기입...' 나오고
-            // 입력했는데, 유효성 검사에서 틀리면 에러 메세지 나옴
-            // 유효성 검사까지 맞다면 helperText 없어짐
-            !email
-              ? '이메일은 기입하지 않으셔도 제출 가능합니다.'
-              : !validate.email
-              ? validateHint.email
-              : ''
-          }
-          error={!validate.email}
-          value={inputs.email}
-          onChange={handleChange}
-        />
-        <input
-          name="theme"
-          value={template.theme}
-          onChange={() => null}
-          style={{ display: 'none' }}
-        />
-        <input
-          name="subject"
-          value={template.subject}
-          onChange={() => null}
-          style={{ display: 'none' }}
-        />
-        <input
-          name="answer"
-          value={template.answer}
-          onChange={() => null}
-          style={{ display: 'none' }}
-        />
-        <FormControlLabel
-          label="개인정보 수집 및 이용에 동의합니다."
-          control={
-            <Checkbox color="primary" checked={agreed} onChange={() => setAgreed(!agreed)} />
-          }
-        />
-        <SubmitButton type="submit" disabled={!(agreed && inputs.phone && validate.phone)}>
-          제출
-        </SubmitButton>
-      </form>
+      <TextField
+        name="phone"
+        className={classes.root}
+        inputProps={{ className: classes.input }}
+        required
+        fullWidth
+        variant="filled"
+        label="전화번호"
+        placeholder="전화번호를 입력해주세요."
+        helperText={!validate.phone && validateHint.phone}
+        error={!validate.phone}
+        value={inputs.phone}
+        onChange={handleChange}
+      />
+      <TextField
+        name="email"
+        className={classes.root}
+        inputProps={{ className: classes.input }}
+        fullWidth
+        variant="filled"
+        label="이메일"
+        helperText={
+          // 만약 이메일을 입력하지 않았으면 '이메일은 기입...' 나오고
+          // 입력했는데, 유효성 검사에서 틀리면 에러 메세지 나옴
+          // 유효성 검사까지 맞다면 helperText 없어짐
+          !email
+            ? '이메일은 기입하지 않으셔도 제출 가능합니다.'
+            : !validate.email
+            ? validateHint.email
+            : ''
+        }
+        error={!validate.email}
+        value={inputs.email}
+        onChange={handleChange}
+      />
+      <FormControlLabel
+        label="개인정보 수집 및 이용에 동의합니다."
+        control={<Checkbox color="primary" checked={agreed} onChange={() => setAgreed(!agreed)} />}
+      />
+      <SubmitButton
+        type="submit"
+        disabled={!(agreed && inputs.phone && validate.phone)}
+        onClick={handleSubmit}
+      >
+        제출
+      </SubmitButton>
 
       <Typography color="textSecondary" variant="caption">
         수집하는 개인정보 항목은 '연락처', '이메일'로 개인정보의 수집 및 이용 목적은 법률상담을
@@ -197,7 +179,7 @@ function Register() {
       {openModal ? <Modal open={openModal} /> : null}
 
       {/* TODO: hack인데, 폼 전송 시 Google 스프레드시트로 화면이 전환되는 경우 없앰 */}
-      <iframe style={{ display: 'none' }} title="submitpage" name="screenInvisible" />
+      {/* <iframe style={{ display: 'none' }} title="submitpage" name="screenInvisible" /> */}
     </Layout>
   );
 }

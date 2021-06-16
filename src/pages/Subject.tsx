@@ -3,35 +3,20 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { questions } from '@/questions';
 import { useHistory } from 'react-router-dom';
-import { useThemeState, useSubjectState, ThemeType } from '@/atoms/questionState';
+import { useThemeState, useSubjectState } from '@/atoms/questionState';
 import Button from '@/components/common/Button';
 import Layout from '@/components/Layout';
 
-function Choice() {
+function Subject() {
   const history = useHistory();
-  const [theme, setTheme] = useThemeState();
-  const [subject, setSubject] = useSubjectState();
+  const [theme] = useThemeState();
+  const [, setSubject] = useSubjectState();
 
-  const themeList = Object.keys(questions);
   const subjectList = questions[theme.key].subjects;
-
-  // const selectTheme = (theme: ThemeType) => {
-  //   setTheme({
-  //     key: 'trafficCrime',
-  //     name: '교통범죄',
-  //   });
-  // };
-
-  // data에 있는 주제들을 버튼으로 생성
-  // const themeButtons = themeList.map(data => (
-  //   <StyledButton key={data} variant="text" size="large" onClick={() => selectTheme(data)}>
-  //     {data}
-  //   </StyledButton>
-  // ));
 
   const selectSubject = (subject: string) => {
     setSubject(subject);
-    history.push(`/question/${subject}`);
+    history.push(`/question`);
   };
 
   const subjectButtons = subjectList.map(({ label }) => (
@@ -41,7 +26,7 @@ function Choice() {
   ));
 
   return (
-    <Layout title={theme.name} desc="원하는 주제를 선택해주세요" bigTitle>
+    <Layout title={theme.name} desc="아래 사항 중 고민하시는 게 무엇인가요?" bigTitle>
       <List>{subjectButtons}</List>
     </Layout>
   );
@@ -70,4 +55,4 @@ const StyledButton = styled(Button)`
   }
 `;
 
-export default Choice;
+export default Subject;

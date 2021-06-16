@@ -1,5 +1,6 @@
 import Info from '@/pages/Info';
-import Choice from '@/pages/Choice';
+import Theme from '@/pages/Theme';
+import Subject from '@/pages/Subject';
 import Question from '@/pages/Question';
 import Register from '@/pages/Register';
 import Upload from '@/pages/Upload';
@@ -12,14 +13,20 @@ export const routes = [
     component: Info,
   },
   {
-    name: 'Choice',
-    path: '/choice',
+    name: 'Theme',
+    path: '/theme',
     exact: true,
-    component: Choice,
+    component: Theme,
+  },
+  {
+    name: 'Subject',
+    path: '/subject',
+    exact: true,
+    component: Subject,
   },
   {
     name: 'Question',
-    path: '/question/:subject',
+    path: '/question',
     exact: true,
     component: Question,
   },

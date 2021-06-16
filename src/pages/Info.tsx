@@ -14,7 +14,7 @@ function Info() {
   const iconSize = matches800 ? 'small' : 'medium';
 
   const handleClick = () => {
-    history.push('/choice');
+    history.push('/theme');
   };
 
   return (
