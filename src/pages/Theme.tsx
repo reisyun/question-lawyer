@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { questions } from '@/questions';
 import { useHistory } from 'react-router-dom';
-import { useThemeState, ThemeType } from '@/atoms/questionState';
+import { useThemeState, useSubjectState, ThemeType } from '@/atoms/questionState';
 import Button from '@/components/common/Button';
 import Layout from '@/components/Layout';
 
@@ -11,15 +11,25 @@ function Theme() {
   const history = useHistory();
   const [questionData] = useState(questions);
   const [, setTheme] = useThemeState();
+  const [, setSubject] = useSubjectState();
 
   const themeList = Object.keys(questionData);
 
   const selectTheme = (theme: ThemeType['key']) => {
+    const themeName = questionData[theme as ThemeType['key']];
+
     setTheme({
       key: theme,
       name: questionData[theme as ThemeType['key']].theme,
     });
-    history.push(`/subject`);
+
+    // subject가 1개 이하일 땐 질문으로 바로 이동
+    if (themeName.subjects.length <= 1) {
+      setSubject(themeName.subjects[0].label);
+      history.push(`/question`);
+    } else {
+      history.push(`/subject`);
+    }
   };
 
   // data에 있는 주제들을 버튼으로 생성
