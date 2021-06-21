@@ -16,14 +16,14 @@ function Upload() {
     history.push('/register');
   };
 
-  const onChange = (file: File[]) => {
-    setFiles(file);
+  const onChange = (fileData: File[]) => {
+    setFiles(fileData);
   };
 
   return (
     <Layout
       title="이 사건과 관련된 자료가 있다면 업로드 해주세요"
-      // desc="파일의 최대 사이즈는 5MB입니다."
+      desc="파일의 최대 사이즈는 10MB입니다."
     >
       <DropzoneArea
         dropzoneText={isMobile ? '파일을 선택해주세요' : '이곳에 파일을 놓아보세요!'}
