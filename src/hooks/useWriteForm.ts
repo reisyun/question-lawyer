@@ -1,54 +1,55 @@
-import emailjs from 'emailjs-com';
-import { config } from '@/libs/config';
+import axios from 'axios';
 import { useThemeState, useSubjectState } from '@/atoms/questionState';
 import { useAnswerState, useFileState } from '@/atoms/answerState';
 
-const toBase64 = (file: File) =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  });
+// axios.defaults.baseURL = 'http://lawyer-question-tree.herokuapp.com';
+axios.defaults.baseURL = 'http://localhost:4000';
+
+const writeFormData = (form: any) => {
+  const { phone, email, theme, subject, answer } = form;
+  const files = form.files as File[];
+
+  const fd = new FormData();
+  fd.append('phone', phone);
+  fd.append('email', email);
+  fd.append('theme', theme);
+  fd.append('subject', subject);
+  fd.append('answer', answer);
+  // 리스트 형식으로 formData 담을 수 없음
+  files.map((file: File) => fd.append(`files`, file));
+
+  return fd;
+};
+
+const postFormDataToServer = async (data: FormData) => {
+  return axios.post('/send', data);
+};
 
 export function useWriteForm() {
   const [theme] = useThemeState();
   const [subject] = useSubjectState();
   const [answerForm] = useAnswerState();
-  const [file] = useFileState();
-  const files = file.map(f => toBase64(f));
+  const [files] = useFileState();
 
-  const answer = answerForm
-    .map(
-      ({ q, a }) => `
-질문: ${q}
-<br />
-답변: ${a || 'skip'}
-`,
-    )
+  const answerHTML = answerForm
+    .map(({ q, a }) => `질문: ${q}<br />답변: ${a || 'skip'}`)
     .join('<br /><br />');
 
-  const template = {
-    theme: theme?.name,
-    subject,
-    answer,
-  };
-
   const sendEmail = async (form: any) => {
-    const body = `
-<h3>${theme?.name} | ${subject}</h3>
-<strong>연락처: ${form.phone}</strong><br/>
-<strong>이메일: ${form.email}</strong>
-<br />
-<br />
-<div>${answer}</div>
-`;
+    const { phone, email } = form;
 
-    await emailjs.send(config.EMAILJS_SERVICE_ID, config.EMAILJS_TEMPLATE_ID, {
-      body,
-      phone: form.phone,
+    const formData = writeFormData({
+      theme: theme?.name,
+      subject,
+      answer: answerHTML,
+      phone,
+      email,
+      files,
     });
+
+    // eslint-disable-next-line no-console
+    postFormDataToServer(formData).then(console.log).catch(console.error);
   };
 
-  return { template, sendEmail };
+  return sendEmail;
 }
