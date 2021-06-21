@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-unescaped-entities */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { makeStyles } from '@material-ui/core/styles';
 import { isEmail, isPhoneNumber } from '@/libs/utils';
@@ -13,14 +13,12 @@ import Layout from '@/components/Layout';
 import Modal from '@/components/Modal';
 
 function Register() {
-  const formAction =
-    'https://script.google.com/macros/s/AKfycbwYLeM1HtRVtNG5CQrJVb3vCfHy_z79yGBgDvA-PWXk-xQu0Gk/exec';
+  // const formAction = 'https://script.google.com/macros/s/AKfycbwYLeM1HtRVtNG5CQrJVb3vCfHy_z79yGBgDvA-PWXk-xQu0Gk/exec';
   const classes = textFieldStyles();
-  const formElement = useRef<HTMLFormElement>(null);
   const [openModal, setOpenModal] = useState(false);
   const [agreed, setAgreed] = useState(false);
   const [, setAnswerForm] = useAnswerState();
-  const { template, sendEmail } = useWriteForm();
+  const sendEmail = useWriteForm();
   const [inputs, setInputs] = useState({
     phone: '',
     email: '',
@@ -89,26 +87,8 @@ function Register() {
   const handleSubmit = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
 
-    // const formData = new FormData();
-    // formData.append('phone', phone);
-    // formData.append('email', email);
-    // formData.append('theme', template.theme as string);
-    // formData.append('subject', template.subject as string);
-    // formData.append('answer', template.answer);
-
-    // await fetch(formAction, {
-    //   method: 'POST',
-    //   mode: 'cors',
-    //   cache: 'no-cache',
-    //   headers: { 'Content-Type': 'multipart/form-data' },
-    //   body: formData,
-    // })
-    //   .then(console.log)
-    //   .catch(console.error);
-
     // 이메일을 보냄
     await sendEmail({
-      ...template,
       phone,
       email,
     });
@@ -177,9 +157,6 @@ function Register() {
         개인정보를 재생이 불가능한 방법으로 즉시 파기합니다.
       </Typography>
       {openModal ? <Modal open={openModal} /> : null}
-
-      {/* TODO: hack인데, 폼 전송 시 Google 스프레드시트로 화면이 전환되는 경우 없앰 */}
-      {/* <iframe style={{ display: 'none' }} title="submitpage" name="screenInvisible" /> */}
     </Layout>
   );
 }
