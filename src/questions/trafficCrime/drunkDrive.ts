@@ -27,18 +27,6 @@ export const drunkDrive: QuestionList = {
         desc: '측정오류, 고지의무위반 등',
       },
     },
-    {
-      question: {
-        title: '경찰수사, 검찰수사, 재판단계 중 어느 단계인가요?',
-      },
-      answer: ['경찰 수사 전', '경찰 수사 중', '검찰 수사 중', '재판 중'],
-    },
-    {
-      question: {
-        title: '사건 발생 장소와 수사 중인 경찰서(검찰, 법원)는 어디인가요?',
-      },
-      placeholder: '1. 사건발생장소는?\n2. 수사중인 곳은?(예: OO경찰서, OO검찰청)',
-    },
-    ...commonQuestions,
+    ...commonQuestions(true),
   ],
 };

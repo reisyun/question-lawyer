@@ -37,16 +37,6 @@ export const embezzlement: QuestionList = {
       },
       placeholder: '계약서, 카톡내용, 녹음파일, 문자내역 등',
     },
-    {
-      question: { title: '경찰수사, 검찰수사, 재판단계 중 어느 단계인가요?' },
-      answer: ['경찰 수사 전', '경찰 수사 중', '검찰 수사 중', '재판 중'],
-    },
-    {
-      question: {
-        title: '수사 중인 경찰서(검찰, 법원)는 어디인가요?',
-      },
-      placeholder: '수사중인 곳은?(예: OO경찰서, OO검찰청)',
-    },
-    ...commonQuestions,
+    ...commonQuestions(),
   ],
 };
