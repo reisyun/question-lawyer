@@ -1,13 +1,16 @@
 import { drunkDrive } from '@/questions/trafficCrime/drunkDrive';
 import { hitAndRun } from '@/questions/trafficCrime/hitAndRun';
 import { carInjury } from '@/questions/trafficCrime/carInjury';
-
 import { fraud } from '@/questions/fraud/fraud';
 import { embezzlement } from '@/questions/fraud/embezzlement';
-
 import { assault } from '@/questions/assault/assault';
-
 import { insult } from '@/questions/insult/insult';
+import { molestation } from '@/questions/sexOffense/molestation';
+import { sexualAssault } from '@/questions/sexOffense/sexualAssault';
+import { prostitution } from '@/questions/sexOffense/prostitution';
+import { hiddenCamera } from '@/questions/sexOffense/hiddenCamera';
+import { distributionOfPornography } from '@/questions/sexOffense/distributionOfPornography';
+import { otherSexCrimes } from '@/questions/sexOffense/otherSexCrimes';
 
 export const questions = {
   // 교통범죄
@@ -29,5 +32,17 @@ export const questions = {
   insult: {
     theme: '모욕ㆍ명예훼손',
     subjects: [insult],
+  },
+  // 모욕ㆍ명예훼손
+  sexOffense: {
+    theme: '성범죄',
+    subjects: [
+      molestation,
+      sexualAssault,
+      prostitution,
+      hiddenCamera,
+      distributionOfPornography,
+      otherSexCrimes,
+    ],
   },
 } as const;
