@@ -2,8 +2,8 @@ import axios from 'axios';
 import { useThemeState, useSubjectState } from '@/atoms/questionState';
 import { useAnswerState, useFileState } from '@/atoms/answerState';
 
-// axios.defaults.baseURL = 'http://lawyer-question-tree.herokuapp.com';
-axios.defaults.baseURL = 'http://localhost:4000';
+axios.defaults.baseURL = 'https://lawyer-question-tree.herokuapp.com';
+// axios.defaults.baseURL = 'http://localhost:4000';
 
 const writeFormData = (form: any) => {
   const { phone, email, theme, subject, answer } = form;
@@ -22,7 +22,7 @@ const writeFormData = (form: any) => {
 };
 
 const postFormDataToServer = async (data: FormData) => {
-  return axios.post('/send', data);
+  await axios.post('/send', data);
 };
 
 export function useWriteForm() {
@@ -48,7 +48,7 @@ export function useWriteForm() {
     });
 
     // eslint-disable-next-line no-console
-    postFormDataToServer(formData).then(console.log).catch(console.error);
+    await postFormDataToServer(formData).then(console.log).catch(console.error);
   };
 
   return sendEmail;
