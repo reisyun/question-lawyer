@@ -1,6 +1,9 @@
 import { atom, useRecoilState } from 'recoil';
 
-export type AnswerType = { q: string; a: string };
+export type AnswerType = {
+  q: string;
+  a: string | 'skip';
+};
 export type FileType = File;
 
 export const answerState = atom<AnswerType[]>({
