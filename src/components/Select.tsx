@@ -1,50 +1,47 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { useTabs } from '@/hooks/useTabs';
 import { ThemeProps } from '@/styles/theme';
 import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
 
 interface SelectProps {
-  items: Array<string>;
-  onClick: React.MouseEventHandler<HTMLElement>;
-  onChange: React.ChangeEventHandler<HTMLElement>;
+  value: string;
+  answers: string[];
+  selected: string[];
+  selectAnswer: (answer: string) => void;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-function Select({ items, onClick, onChange }: SelectProps) {
-  const [currentTab, setCurrentIndex] = useTabs(items);
+function Select({ value, answers, selected, selectAnswer, onChange }: SelectProps) {
+  const selectButton = answers.map(answer => {
+    // 선택한 답변에 스타일 적용
+    const selectedAnswer = selected.find(selected => selected === answer);
+    const selectedStyle = selectedAnswer ? 'selected' : '';
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>, idx: number) => {
-    onClick(event);
-    setCurrentIndex(idx);
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(event);
-  };
-
-  const selectButton = items.map((item, idx) =>
-    item === '#input' ? (
+    return answer === '#input' ? (
       <SelectInput
-        key={item}
+        key={answer}
+        aria-label={answer}
+        value={value}
         placeholder="직접 입력하기"
-        onClick={e => handleClick(e, idx)}
-        onChange={handleChange}
-        className={item === currentTab ? 'selected' : ''}
+        onClick={() => selectAnswer(answer)}
+        onChange={onChange}
+        className={selectedStyle}
       />
     ) : (
       <SelectButton
-        key={item}
+        key={answer}
+        aria-label={answer}
         variant="outline"
         size="large"
-        onClick={e => handleClick(e, idx)}
-        className={item === currentTab ? 'selected' : ''}
+        onClick={() => selectAnswer(answer)}
+        className={selectedStyle}
       >
-        {item}
+        {answer}
       </SelectButton>
-    ),
-  );
+    );
+  });
 
   return <SelectBlock>{selectButton}</SelectBlock>;
 }
@@ -92,6 +89,7 @@ const SelectButton = styled(Button)`
     margin-top: 0;
   }
 `;
+
 const SelectInput = styled(Input)`
   ${baseStyle};
   height: 64px;
@@ -105,8 +103,6 @@ const SelectInput = styled(Input)`
 
   &:focus {
     outline: none;
-    border: 2px solid ${({ theme }) => theme.palette.color.main};
-    color: ${({ theme }) => theme.palette.color.main};
   }
 `;
 

@@ -1,80 +1,125 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
+import { useCount } from '@/hooks/useCount';
 import { useGetQuestion } from '@/atoms/questionState';
 import { useAnswerState, AnswerType } from '@/atoms/answerState';
 import Select from '@/components/Select';
 import MainButton from '@/components/MainButton';
 import TextArea from '@/components/TextArea';
 import Layout from '@/components/Layout';
+import NotFound from '@/pages/NotFound';
 
 function Question() {
   const history = useHistory();
-  const [count, setCount] = useState<number>(0);
-  const question = useGetQuestion();
-  const [answer, setAnswer] = useState('');
+  const questions = useGetQuestion();
+  const [count, increment] = useCount();
+  const [inputValue, setInputValue] = useState<string>('');
+  const [selectedAnswer, setSelectedAnswer] = useState<string[]>([]);
   const [answerForm, setAnswerForm] = useAnswerState();
 
+  /**
+   * 질문 바뀔 때마다 답변 값 초기화
+   */
   useEffect(() => {
-    setAnswer('');
+    setInputValue('');
+    setSelectedAnswer([]);
   }, [count]);
 
-  if (!question) return <h1>비정상적인 접근입니다.</h1>;
+  if (!questions) return <NotFound />;
 
-  const currentQuestion = question.items[count];
+  // 질문 관련
+  const currentQuestion = questions.items[count];
+  const questionTotal = questions.items.length;
 
-  const nextQuestion = (e: any, skip?: boolean) => {
-    // 다음 버튼을 누르면 count + 1
-    // 이로써 다음 질문으로 넘어가게 됨
-    setCount(prevCount => prevCount + 1);
+  /**
+   * 다음 질문으로 이동할 때 호출
+   */
+  const onNextQuestion = ({ skip }: { skip?: boolean }) => {
+    // #input keyword를 찾은 후 값 치환
+    // ['#input', '진술서'] -> '#input&진술서' -> '인풋 값&진술서'
+    const newAnswer = currentQuestion.answer
+      ? selectedAnswer.join('&').replace(/#input/g, inputValue)
+      : inputValue;
 
-    const newAnswer: AnswerType = {
+    const newAnswerForm: AnswerType = {
       q: currentQuestion.question.title,
-      a: skip ? 'skip' : answer,
+      a: skip ? 'skip' : newAnswer,
     };
+    setAnswerForm(prevAnswerForm => [...prevAnswerForm, newAnswerForm]);
 
-    // 답변 양식 누적
-    setAnswerForm([...answerForm, newAnswer]);
+    // 다음 질문으로
+    increment();
 
-    // 질문이 모두 끝나면 register page로 이동
-    if (question.items.length - 1 <= count) {
+    // 질문이 모두 끝나면 upload page로 이동
+    if (questionTotal - 1 <= count) {
       history.push('/upload');
     }
   };
 
-  // Select component
-  const selectAnswer = (event: React.MouseEvent | React.ChangeEvent, inputVal?: string) => {
-    const targetEl = event.target as HTMLElement;
-    const value = inputVal || targetEl.innerText;
+  /**
+   * 단일 또는 다중 선택 에 따라 답변을 상태에 담음
+   *
+   * @param currentAnswer 현재 선택한 답변
+   */
+  const selectAnswer = (currentAnswer: string) => {
+    // 다중 선택이 아닐 경우
+    if (!currentQuestion.multi) {
+      setSelectedAnswer([currentAnswer]);
+      return;
+    }
 
-    setAnswer(value);
+    // 답변이 이미 존재할 경우 True
+    const existAnswer = selectedAnswer.find(prevAnswer => prevAnswer === currentAnswer);
+
+    // 이미 존재하면 선택한 답변에서 제거
+    if (existAnswer) {
+      setSelectedAnswer(selectedAnswer.filter(prevAnswer => prevAnswer !== currentAnswer));
+    }
+    // 존재하지 않으면 이전에 선택한 답변과 같이 추가
+    else {
+      setSelectedAnswer(prevAnswer => [...prevAnswer, currentAnswer]);
+    }
   };
 
-  // Input component
-  const enterAnswer = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const { value } = event.target;
-
-    setAnswer(value);
+    setInputValue(value);
   };
 
   return (
     <Layout
-      tagName={question.label}
+      tagName={questions.label}
       title={currentQuestion.question.title}
       desc={currentQuestion.question.desc}
     >
       {currentQuestion.answer ? (
-        <Select items={currentQuestion.answer} onClick={selectAnswer} onChange={enterAnswer} />
+        <Select
+          value={inputValue}
+          answers={currentQuestion.answer}
+          selected={selectedAnswer}
+          selectAnswer={selectAnswer}
+          onChange={handleChange}
+        />
       ) : (
-        <TextArea placeholder={currentQuestion.placeholder} value={answer} onChange={enterAnswer} />
+        <TextArea
+          value={inputValue}
+          placeholder={currentQuestion.placeholder}
+          onChange={handleChange}
+        />
       )}
       {/* 답변이 없을 경우 버튼 비활성화 */}
       <Navigation>
-        <NextButton disabled={!answer.length} onClick={() => nextQuestion(false)}>
+        <NextButton
+          // inputValue가 있거나, #input keyword 가 아닌 답변이 선택되면 다음 버튼 활성화
+          disabled={!(inputValue || selectedAnswer.find(s => s !== '#input'))}
+          onClick={() => onNextQuestion({ skip: false })}
+        >
           다음
         </NextButton>
-        <Button color="primary" onClick={() => nextQuestion(true)}>
+        <Button color="primary" onClick={() => onNextQuestion({ skip: true })}>
           건너뛰기
         </Button>
       </Navigation>
