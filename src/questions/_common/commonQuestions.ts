@@ -2,7 +2,7 @@
  * 공통적인 질문 모음
  */
 
-import { QuestionItem } from '@/questions/common/model';
+import { QuestionItem } from '@/questions/_common/model';
 
 export const commonQuestions = (where?: boolean): QuestionItem[] => {
   const whereQuestion = {

@@ -2,8 +2,8 @@
  * 폭행 관련 질문 모음
  */
 
-import { QuestionList } from '@/questions/common/model';
-import { commonQuestions } from '@/questions/common/commonQuestions';
+import { QuestionList } from '@/questions/_common/model';
+import { commonQuestions } from '@/questions/_common/commonQuestions';
 
 export const insult: QuestionList = {
   label: '모욕ㆍ명예훼손',

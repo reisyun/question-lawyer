@@ -2,8 +2,8 @@
  * 기타 성범죄 관련 질문 모음
  */
 
-import { QuestionList } from '@/questions/common/model';
-import { commonQuestions } from '@/questions/common/commonQuestions';
+import { QuestionList } from '@/questions/_common/model';
+import { commonQuestions } from '@/questions/_common/commonQuestions';
 
 export const otherSexCrimes: QuestionList = {
   label: '기타 성범죄',

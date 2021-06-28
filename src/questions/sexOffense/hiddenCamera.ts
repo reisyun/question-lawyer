@@ -2,8 +2,8 @@
  * 카메라 촬영죄(몰카) 관련 질문 모음
  */
 
-import { QuestionList } from '@/questions/common/model';
-import { commonQuestions } from '@/questions/common/commonQuestions';
+import { QuestionList } from '@/questions/_common/model';
+import { commonQuestions } from '@/questions/_common/commonQuestions';
 
 export const hiddenCamera: QuestionList = {
   label: '카메라 촬영죄(몰카)',

@@ -2,8 +2,8 @@
  * 폭행 관련 질문 모음
  */
 
-import { QuestionList } from '@/questions/common/model';
-import { commonQuestions } from '@/questions/common/commonQuestions';
+import { QuestionList } from '@/questions/_common/model';
+import { commonQuestions } from '@/questions/_common/commonQuestions';
 
 export const assault: QuestionList = {
   label: '폭행ㆍ상해',

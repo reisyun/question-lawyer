@@ -11,6 +11,7 @@ export interface QuestionList {
 }
 
 export interface QuestionItem {
+  multi?: boolean;
   question: {
     title: string;
     desc?: string;
