@@ -8,15 +8,14 @@ export interface TextAreaProps {
   onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
 }
 
-function TextArea({ value, placeholder, onChange, ...rest }: TextAreaProps) {
+function TextArea({ value, placeholder, onChange }: TextAreaProps) {
   return (
     <StyledTextArea
       autoFocus
       value={value}
       placeholder={placeholder || '작성해주세요'}
       onChange={onChange}
-      rowsMin={10}
-      {...rest}
+      rowsMin={12}
     />
   );
 }
