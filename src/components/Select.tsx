@@ -52,34 +52,47 @@ const SelectBlock = styled.div`
 `;
 
 const baseStyle = ({ theme }: ThemeProps) => css`
-  margin-top: 16px;
-  background: white;
-  /* transition 주기 위해 border-color = 투명 */
-  color: ${theme.palette.color.secondary};
+  background: rgba(39, 60, 117, 0.4);
+  border: 0;
+  color: white;
+  transition: background 0.2s;
 
-  border-color: transparent;
-  border-radius: 8px;
+  &:hover {
+    background: rgba(39, 60, 117, 0.6);
+  }
+
+  &.selected {
+    background: rgba(39, 60, 117, 0.8);
+  }
+
+  margin-top: 16px;
+  /* background: white; */
+  /* transition 주기 위해 border-color = 투명 */
+  /* color: ${theme.palette.color.secondary}; */
+
   /* 더 나은 가시성을 위해 추가 */
+  /* border: 1px solid rgba(39, 60, 117, 0.25); */
+  border-radius: 8px;
   box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.05);
 
-  transition: border-color 0.2s, font-weight 0.2s, color 0.2s;
+  /* transition: border-color 0.2s, font-weight 0.2s, color 0.2s; */
 
   /* focus만 할 경우 다른 곳을 클릭할 시 스타일이 사라지는 문제 보안 */
-  &.selected {
-    border: 2px solid ${theme.palette.color.main};
-    color: ${theme.palette.color.main};
-  }
+  // &.selected {
+  /* border: 2px solid ${theme.palette.color.main}; */
+  /* color: ${theme.palette.color.main}; */
+  // }
 
   /* tab 버튼을 누를 경우 포커스 스타일 */
-  &:focus {
+  /* &:focus {
     background: ${theme.palette.overlay.focus};
-  }
+  } */
 
-  @media (max-width: 768px) {
-    &:hover {
-      background: white;
-    }
-  }
+  // @media (max-width: 768px) {
+  //   &:hover {
+  //     background: white;
+  //   }
+  // }
 `;
 
 const SelectButton = styled(Button)`
@@ -94,11 +107,14 @@ const SelectInput = styled(Input)`
   ${baseStyle};
   height: 64px;
   font-size: ${({ theme }) => theme.size.fontSize.md};
-  color: ${({ theme }) => theme.palette.color.secondary};
+  /* color: ${({ theme }) => theme.palette.color.secondary}; */
   text-align: center;
 
+  color: white;
+
   &::placeholder {
-    color: ${({ theme }) => theme.palette.color.secondary};
+    color: white;
+    /* color: ${({ theme }) => theme.palette.color.secondary}; */
   }
 
   &:focus {
