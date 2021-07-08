@@ -8,10 +8,7 @@ import Icon from '@/components/common/Icon';
 
 function Info() {
   const history = useHistory();
-  const matches680 = useMediaQuery(`(max-width: 680px)`);
-  const matches800 = useMediaQuery(`(max-width: 800px)`);
-
-  const iconSize = matches800 ? 'small' : 'medium';
+  const matches720 = useMediaQuery(`(max-width: 720px)`);
 
   const handleClick = () => {
     history.push('/theme');
@@ -26,8 +23,9 @@ function Info() {
             alt="person"
           />
           <Point>
-            <Text fontSize={matches680 ? 'sm' : 'md'} color="main" bold>
-              형사 전문 변호사에게 직접 물어보세요!
+            <Text fontSize={matches720 ? 'sm' : 'md'} color="main" bold>
+              <span style={{ fontSize: matches720 ? 16 : 20 }}>형사 전문 변호사</span>
+              에게 직접 물어보세요!
             </Text>
           </Point>
 
@@ -35,15 +33,15 @@ function Info() {
             <Title fontSize="title" color="white" bold>
               형사법률 리스크 진단
             </Title>
-            <Text fontSize={matches680 ? 'md' : 'lg'} color="white">
+            <Text fontSize={matches720 ? 'md' : 'lg'} color="white">
               법률과 관련된 고민을 쉽게 상담받아보세요
             </Text>
           </Titles>
-          {matches680 ? (
+          {matches720 ? (
             <StyledMobileButton
               variant="contained"
               size="large"
-              endIcon={<Icon icon="arrow" color="main" />}
+              endIcon={<Icon icon="arrow" color="primary" />}
               onClick={handleClick}
             >
               시작하기
@@ -52,7 +50,7 @@ function Info() {
             <StyledPCButton
               variant="contained"
               size="large"
-              endIcon={<Icon icon="arrow" color="main" />}
+              endIcon={<Icon icon="arrow" color="primary" />}
               onClick={handleClick}
             >
               시작하기
@@ -64,22 +62,22 @@ function Info() {
         <Inner>
           <Infos>
             <NameGroup>
-              <Text fontSize={matches800 ? 'md' : 'lg'} color="main">
+              <Text fontSize={matches720 ? 'md' : 'lg'} color="main">
                 형사전문변호사
               </Text>
-              <Text fontSize={matches800 ? 'xl' : 'subtitle'} color="main" bold>
+              <Name fontSize={matches720 ? 'xl' : 'subtitle'} color="main" bold>
                 김기윤
-              </Text>
+              </Name>
             </NameGroup>
             <MuiButtonGroup
               variant="text"
-              orientation={matches800 ? 'vertical' : 'horizontal'}
+              orientation={matches720 ? 'vertical' : 'horizontal'}
               size="large"
               color="primary"
             >
               <Button
-                style={matches800 ? MobileButtonStyle : PcButtonStyle}
-                startIcon={<Icon icon="call" size={iconSize} color="main" />}
+                style={matches720 ? MobileButtonStyle : PcButtonStyle}
+                startIcon={<Icon icon="call" size="small" color="main" />}
               >
                 <Link
                   style={{ color: '#273C75' }}
@@ -91,8 +89,8 @@ function Info() {
                 </Link>
               </Button>
               <Button
-                style={matches800 ? MobileButtonStyle : PcButtonStyle}
-                startIcon={<Icon icon="chat" size={iconSize} color="main" />}
+                style={matches720 ? MobileButtonStyle : PcButtonStyle}
+                startIcon={<Icon icon="chat" size="small" color="main" />}
               >
                 <Link
                   style={{ color: '#273C75' }}
@@ -104,8 +102,8 @@ function Info() {
                 </Link>
               </Button>
               <Button
-                style={matches800 ? MobileButtonStyle : PcButtonStyle}
-                startIcon={<Icon icon="info" size={iconSize} color="main" />}
+                style={matches720 ? MobileButtonStyle : PcButtonStyle}
+                startIcon={<Icon icon="info" size="small" color="main" />}
               >
                 <Link
                   style={{ color: '#273C75' }}
@@ -141,29 +139,30 @@ const PersonImage = styled.img`
 
   position: absolute;
   right: 0;
-  /* bottom: -56vh; */
+  bottom: -55vh;
 
-  height: 84vh;
+  height: 84vh !important;
   min-height: 600px;
   max-height: 900px;
 
-  @media (max-width: 800px) {
-    max-height: 70vh;
-    bottom: -63vh;
-  }
-
-  @media (min-width: 1200px) {
-    max-height: 100vh;
-  }
-
-  @media (min-width: 900px) and (min-height: 1200px) {
+  @media (max-width: 1100px) and (min-width: 800px) {
     max-height: 1000px;
-    bottom: -63vh;
   }
 
-  @media (max-width: 800px) and (max-height: 900px) {
-    width: 33vh;
+  @media (max-width: 720px) {
     bottom: -63vh;
+    max-height: 70vh;
+  }
+
+  @media (max-width: 480px) {
+    right: -10vw;
+    bottom: -70vh;
+    max-height: 50vh;
+  }
+
+  @media (max-height: 720px) {
+    bottom: -80vh;
+    max-height: 50vh;
   }
 `;
 
@@ -173,21 +172,21 @@ const Header = styled.header`
   min-height: 400px;
   background: ${({ theme }) => theme.palette.color.main};
 
-  @media (max-width: 680px) {
+  @media (max-width: 720px) {
     height: 53vh;
   }
 `;
 
 const Inner = styled.div`
   position: absolute;
-  top: ${({ top }: { top?: boolean }) => (top ? 65 : 38)}%;
+  top: ${({ top }: { top?: boolean }) => (top ? 60 : 38)}%;
   left: 50%;
   padding: 0 40px;
   width: 100%;
   transform: translate(-50%, -50%);
 
-  @media (max-width: 680px) {
-    top: ${({ top }: { top?: boolean }) => (top ? 56 : 30)}%;
+  @media (max-width: 720px) {
+    top: ${({ top }: { top?: boolean }) => (top ? 50 : 50)}%;
     padding: 0 24px;
   }
 
@@ -202,7 +201,7 @@ const Point = styled.div`
   background: rgba(255, 255, 255, 0.6);
   border-radius: 24px;
 
-  @media (max-width: 680px) {
+  @media (max-width: 720px) {
     padding: 8px 20px;
   }
 `;
@@ -210,14 +209,14 @@ const Point = styled.div`
 const Titles = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 4px;
+  margin: 8px 0 64px;
 `;
 
 const Title = styled(Text)`
   font-size: 48px;
   letter-spacing: -2px;
 
-  @media (max-width: 680px) {
+  @media (max-width: 720px) {
     font-size: 36px;
   }
 `;
@@ -225,13 +224,15 @@ const Title = styled(Text)`
 const StyledPCButton = withStyles({
   root: {
     zIndex: 100,
-    marginTop: 40,
-    background: 'white',
-    width: 160,
-    height: 48,
+    width: 180,
+    height: 56,
+    background: 'rgba(255, 237, 163, 0.95)',
+    '&:hover': {
+      background: 'rgba(255, 237, 163, 1)',
+    },
   },
   label: {
-    color: '#273C75',
+    color: '#212121',
     fontWeight: 'bold',
   },
 })(Button);
@@ -239,11 +240,15 @@ const StyledPCButton = withStyles({
 const StyledMobileButton = withStyles({
   root: {
     zIndex: 100,
-    marginTop: 40,
-    background: 'white',
+    width: 160,
+    height: 48,
+    background: 'rgba(255,234,167, 0.8)',
+    '&:hover': {
+      background: 'rgba(255,234,167, 0.9)',
+    },
   },
   label: {
-    color: '#273C75',
+    color: '#212121',
     fontWeight: 'bold',
   },
 })(Button);
@@ -253,7 +258,7 @@ const Bottom = styled.footer`
   height: 40vh;
   min-height: 200px;
 
-  @media (max-width: 680px) {
+  @media (max-width: 720px) {
     height: 47vh;
   }
 `;
@@ -280,13 +285,19 @@ const NameGroup = styled.div`
     line-height: 1.2;
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 720px) {
     flex-direction: column;
     align-items: flex-start;
 
     & span {
       margin-left: 0;
     }
+  }
+`;
+
+const Name = styled(Text)`
+  @media (max-width: 720px) {
+    font-size: 38px;
   }
 `;
 
