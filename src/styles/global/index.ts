@@ -14,6 +14,16 @@ const global = css`
     height: inherit;
   }
 
+  textarea:focus {
+    outline: none;
+  }
+  button:focus {
+    outline: none;
+  }
+  input:focus {
+    outline: none;
+  }
+
   *,
   *::after,
   *::before {
