@@ -19,7 +19,7 @@ function Info() {
       <Header>
         <Inner top>
           <PersonImage
-            src="http://antiwhitepig.cafe24.com/wp-content/uploads/2021/06/person.png"
+            src="http://antiwhitepig.cafe24.com/wp-content/uploads/2021/06/person-e1626235375520.png"
             alt="person"
           />
           <Point>
@@ -129,6 +129,11 @@ const InfoWrap = styled.main`
   width: 100vw;
   height: 100vh;
   background: ${({ theme }) => theme.palette.color.background};
+
+  @media (max-height: 640px) {
+    overflow-y: scroll;
+    height: 640px;
+  }
 `;
 
 const PersonImage = styled.img`
@@ -160,9 +165,13 @@ const PersonImage = styled.img`
     max-height: 50vh;
   }
 
-  @media (max-height: 720px) {
-    bottom: -80vh;
-    max-height: 50vh;
+  @media (max-width: 380px) {
+    right: -20vw;
+  }
+
+  @media (max-width: 720px) and (max-height: 640px) {
+    bottom: -85vh;
+    max-height: 40vh;
   }
 `;
 
@@ -224,8 +233,8 @@ const Title = styled(Text)`
 const StyledPCButton = withStyles({
   root: {
     zIndex: 100,
-    width: 180,
-    height: 56,
+    width: 200,
+    height: 64,
     background: 'rgba(255, 237, 163, 0.95)',
     '&:hover': {
       background: 'rgba(255, 237, 163, 1)',
@@ -241,7 +250,7 @@ const StyledMobileButton = withStyles({
   root: {
     zIndex: 100,
     width: 160,
-    height: 48,
+    height: 64,
     background: 'rgba(255,234,167, 0.8)',
     '&:hover': {
       background: 'rgba(255,234,167, 0.9)',

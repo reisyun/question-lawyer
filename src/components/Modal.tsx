@@ -22,7 +22,7 @@ function Modal({ open, onClose }: ModalProps) {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogContent>
-        <Illust src="https://antiwhitepig.cafe24.com/wp-content/uploads/2021/04/q-letter.png" />
+        <Illust src="http://antiwhitepig.cafe24.com/wp-content/uploads/2021/04/q-letter.png" />
         <Content>
           <Title as="p" fontSize="lg" bold>
             이메일이 성공적으로 전달됐습니다.
