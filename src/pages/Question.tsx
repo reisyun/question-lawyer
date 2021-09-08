@@ -6,51 +6,46 @@ import { Button } from '@material-ui/core';
 import { useCount } from '@/hooks/useCount';
 import { useGetQuestion } from '@/atoms/questionState';
 import { useAnswerState, AnswerType } from '@/atoms/answerState';
-import Select from '@/components/Select';
-import MainButton from '@/components/MainButton';
+import NextButton from '@/components/NextButton';
 import TextArea from '@/components/TextArea';
 import Layout from '@/components/Layout';
 import NotFound from '@/pages/NotFound';
+
+import MultiSelect from '@/components/MultiSelect';
 
 function Question() {
   const history = useHistory();
   const questions = useGetQuestion();
   const [count, increment] = useCount();
+
+  const [, setAnswerForm] = useAnswerState();
   const [inputValue, setInputValue] = useState<string>('');
-  const [selectedAnswer, setSelectedAnswer] = useState<string[]>([]);
-  const [answerForm, setAnswerForm] = useAnswerState();
+  const [selectedAnswer, setSelectAnswer] = useState<string[]>([]);
 
   /**
    * 질문 바뀔 때마다 답변 값 초기화
    */
   useEffect(() => {
     setInputValue('');
-    setSelectedAnswer([]);
+    setSelectAnswer([]);
   }, [count]);
 
   if (!questions) return <NotFound />;
 
-  // 질문 관련
   const currentQuestion = questions.items[count];
   const questionTotal = questions.items.length;
 
   /**
-   * 다음 질문으로 이동할 때 호출
+   * currentQuestion.answer는 선택 목록임.
+   * answer가 존재한다면  *답변 선택 (MultiSelect)
+   * answer가 존재하지 않는다면 *답변 입력 (TextArea)
    */
-  const onNextQuestion = ({ skip }: { skip?: boolean }) => {
-    // #input keyword를 찾은 후 값 치환
-    // ['#input', '진술서'] -> '#input&진술서' -> '인풋 값&진술서'
-    const newAnswer = currentQuestion.answer
-      ? selectedAnswer.join('&').replace(/#input/g, inputValue)
-      : inputValue;
+  const isSelectList = currentQuestion.answer;
 
-    const newAnswerForm: AnswerType = {
-      q: currentQuestion.question.title,
-      a: skip ? 'skip' : newAnswer,
-    };
-    setAnswerForm(prevAnswerForm => [...prevAnswerForm, newAnswerForm]);
-
-    // 다음 질문으로
+  /**
+   * 다음 질문으로
+   */
+  const toNextStep = () => {
     increment();
 
     // 질문이 모두 끝나면 upload page로 이동
@@ -60,33 +55,27 @@ function Question() {
   };
 
   /**
-   * 단일 또는 다중 선택 에 따라 답변을 상태에 담음
-   *
-   * @param currentAnswer 현재 선택한 답변
+   * 다음 질문으로 이동할 때 호출
    */
-  const selectAnswer = (currentAnswer: string) => {
-    // 다중 선택이 아닐 경우
-    if (!currentQuestion.multi) {
-      setSelectedAnswer([currentAnswer]);
-      return;
-    }
+  const handleNextClick = (option?: { skip?: boolean }) => {
+    /**
+     * 중요! 선택 목록에서 답변 입력이 필요한 경우가 있어서,
+     * answer 목록에 "#input"가 있다면, 선택과 입력이 동시에 가능
+     */
+    const newAnswer = isSelectList
+      ? // 리스트를 &으로 이어주었는데, useWriteForm에서 다시 목록으로 치환함
+        // TODO: 이건 리팩토링 필요한듯
+        selectedAnswer.join('&').replace(/#input/g, inputValue)
+      : inputValue;
 
-    // 답변이 이미 존재할 경우 True
-    const existAnswer = selectedAnswer.find(prevAnswer => prevAnswer === currentAnswer);
+    const newAnswerForm: AnswerType = {
+      q: currentQuestion.question.title,
+      a: option?.skip ? 'skip' : newAnswer,
+    };
+    setAnswerForm(prevAnswerForm => [...prevAnswerForm, newAnswerForm]);
 
-    // 이미 존재하면 선택한 답변에서 제거
-    if (existAnswer) {
-      setSelectedAnswer(selectedAnswer.filter(prevAnswer => prevAnswer !== currentAnswer));
-    }
-    // 존재하지 않으면 이전에 선택한 답변과 같이 추가
-    else {
-      setSelectedAnswer(prevAnswer => [...prevAnswer, currentAnswer]);
-    }
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    const { value } = event.target;
-    setInputValue(value);
+    // 다음 질문으로
+    toNextStep();
   };
 
   return (
@@ -95,31 +84,31 @@ function Question() {
       title={currentQuestion.question.title}
       desc={currentQuestion.question.desc}
     >
-      {currentQuestion.answer ? (
-        <Select
-          value={inputValue}
-          answers={currentQuestion.answer}
-          selected={selectedAnswer}
-          selectAnswer={selectAnswer}
-          onChange={handleChange}
+      {isSelectList ? (
+        <MultiSelect
+          items={isSelectList}
+          selectedItems={selectedAnswer}
+          onSelect={setSelectAnswer}
+          onChange={setInputValue}
+          singleSelect
         />
       ) : (
         <TextArea
           value={inputValue}
           placeholder={currentQuestion.placeholder}
-          onChange={handleChange}
+          onChange={setInputValue}
         />
       )}
       {/* 답변이 없을 경우 버튼 비활성화 */}
       <Navigation>
-        <NextButton
+        <StyledNextButton
           // inputValue가 있거나, #input keyword 가 아닌 답변이 선택되면 다음 버튼 활성화
           disabled={!(inputValue || selectedAnswer.find(s => s !== '#input'))}
-          onClick={() => onNextQuestion({ skip: false })}
+          onClick={() => handleNextClick()}
         >
           다음
-        </NextButton>
-        <Button color="primary" onClick={() => onNextQuestion({ skip: true })}>
+        </StyledNextButton>
+        <Button color="primary" onClick={() => handleNextClick({ skip: true })}>
           건너뛰기
         </Button>
       </Navigation>
@@ -133,7 +122,7 @@ const Navigation = styled.footer`
   align-items: center;
 `;
 
-const NextButton = styled(MainButton)`
+const StyledNextButton = styled(NextButton)`
   margin-bottom: 16px;
 `;
 

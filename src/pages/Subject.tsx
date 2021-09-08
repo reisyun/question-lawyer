@@ -38,14 +38,11 @@ const List = styled.div`
 `;
 
 const StyledButton = styled(Button)`
-  background: rgba(39, 60, 117, 0.4);
-  border: 0;
-  color: white;
-
   margin: 8px 0;
-  /* background: white; */
-  /* color: ${({ theme }) => theme.palette.color.secondary}; */
-  /* border: 1px solid rgba(39, 60, 117, 0.25); */
+  background: white;
+  color: ${({ theme }) => theme.palette.color.secondary};
+  border: 1px solid rgba(39, 60, 117, 0.25);
+  box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.1);
   transition: background 0.2s, color 0.2s;
 
   &:hover {

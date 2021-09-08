@@ -8,7 +8,7 @@ import { validateHint } from '@/libs/validateHint';
 import { useAnswerState } from '@/atoms/answerState';
 import { useWriteForm } from '@/hooks/useWriteForm';
 import { TextField, FormControlLabel, Checkbox, Typography } from '@material-ui/core';
-import MainButton from '@/components/MainButton';
+import NextButton from '@/components/NextButton';
 import Layout from '@/components/Layout';
 import Modal from '@/components/Modal';
 
@@ -171,7 +171,7 @@ const textFieldStyles = makeStyles({
   },
 });
 
-const SubmitButton = styled(MainButton)`
+const SubmitButton = styled(NextButton)`
   margin-bottom: 16px;
 `;
 

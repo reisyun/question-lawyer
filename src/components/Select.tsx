@@ -6,93 +6,57 @@ import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
 
 interface SelectProps {
-  value: string;
-  answers: string[];
-  selected: string[];
-  selectAnswer: (answer: string) => void;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  active?: boolean;
+  disabled?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  children: string;
 }
 
-function Select({ value, answers, selected, selectAnswer, onChange }: SelectProps) {
-  const selectButton = answers.map(answer => {
-    // 선택한 답변에 스타일 적용
-    const selectedAnswer = selected.find(selected => selected === answer);
-    const selectedStyle = selectedAnswer ? 'selected' : '';
+function Select({ active, disabled, children, onClick, ...rest }: SelectProps) {
+  const className = active ? 'selected' : '';
 
-    return answer === '#input' ? (
-      <SelectInput
-        key={answer}
-        aria-label={answer}
-        value={value}
-        placeholder="직접 입력하기"
-        onClick={() => selectAnswer(answer)}
-        onChange={onChange}
-        className={selectedStyle}
-      />
-    ) : (
-      <SelectButton
-        key={answer}
-        aria-label={answer}
-        variant="outline"
-        size="large"
-        onClick={() => selectAnswer(answer)}
-        className={selectedStyle}
-      >
-        {answer}
-      </SelectButton>
-    );
-  });
-
-  return <SelectBlock>{selectButton}</SelectBlock>;
+  return (
+    <SelectButton
+      size="large"
+      variant="outline"
+      disabled={disabled}
+      onClick={onClick}
+      className={className}
+      {...rest}
+    >
+      {children}
+    </SelectButton>
+  );
 }
-
-const SelectBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 
 const baseStyle = ({ theme }: ThemeProps) => css`
-  background: rgba(39, 60, 117, 0.4);
-  border: 0;
-  color: white;
-  transition: background 0.2s;
-
-  &:hover {
-    background: rgba(39, 60, 117, 0.6);
-  }
-
-  &.selected {
-    background: rgba(39, 60, 117, 0.8);
-  }
-
   margin-top: 16px;
-  /* background: white; */
+  background: white;
   /* transition 주기 위해 border-color = 투명 */
-  /* color: ${theme.palette.color.secondary}; */
+  color: ${theme.palette.color.secondary};
 
   /* 더 나은 가시성을 위해 추가 */
-  /* border: 1px solid rgba(39, 60, 117, 0.25); */
+  border: 1px solid rgba(39, 60, 117, 0.25);
   border-radius: 8px;
   box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.05);
 
-  /* transition: border-color 0.2s, font-weight 0.2s, color 0.2s; */
+  transition: border-color 0.2s, font-weight 0.2s, color 0.2s;
 
-  /* focus만 할 경우 다른 곳을 클릭할 시 스타일이 사라지는 문제 보안 */
-  // &.selected {
-  /* border: 2px solid ${theme.palette.color.main}; */
-  /* color: ${theme.palette.color.main}; */
-  // }
+  &.selected {
+    border: 2px solid ${theme.palette.color.main};
+    color: ${theme.palette.color.main};
+  }
 
   /* tab 버튼을 누를 경우 포커스 스타일 */
-  /* &:focus {
+  &:focus {
     background: ${theme.palette.overlay.focus};
-  } */
+  }
 
-  // @media (max-width: 768px) {
-  //   &:hover {
-  //     background: white;
-  //   }
-  // }
+  @media (max-width: 768px) {
+    &:hover {
+      background: white;
+    }
+  }
 `;
 
 const SelectButton = styled(Button)`
@@ -107,19 +71,19 @@ const SelectInput = styled(Input)`
   ${baseStyle};
   height: 64px;
   font-size: ${({ theme }) => theme.size.fontSize.md};
-  /* color: ${({ theme }) => theme.palette.color.secondary}; */
+  color: ${({ theme }) => theme.palette.color.secondary};
   text-align: center;
 
-  color: white;
-
   &::placeholder {
-    color: white;
-    /* color: ${({ theme }) => theme.palette.color.secondary}; */
+    color: ${({ theme }) => theme.palette.color.secondary};
   }
 
   &:focus {
     outline: none;
   }
 `;
+
+Select.Button = SelectButton;
+Select.Input = SelectInput;
 
 export default Select;

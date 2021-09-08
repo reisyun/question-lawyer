@@ -235,9 +235,9 @@ const StyledPCButton = withStyles({
     zIndex: 100,
     width: 200,
     height: 64,
-    background: 'rgba(255, 237, 163, 0.95)',
+    background: 'white',
     '&:hover': {
-      background: 'rgba(255, 237, 163, 1)',
+      background: 'white',
     },
   },
   label: {

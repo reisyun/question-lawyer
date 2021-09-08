@@ -2,6 +2,7 @@ import { rgba } from 'polished';
 
 const color = {
   main: '#273C75',
+  sub: '#FFEAA7',
   primary: '#212121',
   secondary: '#757575',
   hint: '#BDBDBD',

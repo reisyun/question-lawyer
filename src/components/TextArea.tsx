@@ -5,16 +5,21 @@ import { TextareaAutosize } from '@material-ui/core';
 export interface TextAreaProps {
   value: string;
   placeholder?: string;
-  onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
+  onChange: (value: string) => void;
 }
 
 function TextArea({ value, placeholder, onChange }: TextAreaProps) {
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = event.target;
+    if (onChange) onChange(value);
+  };
+
   return (
     <StyledTextArea
       autoFocus
       value={value}
       placeholder={placeholder || '작성해주세요'}
-      onChange={onChange}
+      onChange={handleChange}
       rowsMin={12}
     />
   );

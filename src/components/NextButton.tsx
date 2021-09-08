@@ -3,16 +3,16 @@ import styled from '@emotion/styled';
 import { lighten } from 'polished';
 import Button from '@/components/common/Button';
 
-interface MainButtonProps {
+interface NextButtonProps {
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children: string;
 }
 
-function MainButton({ type, disabled, children, onClick, ...rest }: MainButtonProps) {
+function NextButton({ type, disabled, children, onClick, ...rest }: NextButtonProps) {
   return (
-    <MainButtonBlock
+    <NextButtonBlock
       type={type}
       size="medium"
       variant="containe"
@@ -21,11 +21,11 @@ function MainButton({ type, disabled, children, onClick, ...rest }: MainButtonPr
       {...rest}
     >
       {children}
-    </MainButtonBlock>
+    </NextButtonBlock>
   );
 }
 
-const MainButtonBlock = styled(Button)`
+const NextButtonBlock = styled(Button)`
   margin-top: 24px;
   width: 100%;
   border-radius: 8px;
@@ -35,4 +35,4 @@ const MainButtonBlock = styled(Button)`
   }
 `;
 
-export default MainButton;
+export default NextButton;

@@ -6,7 +6,7 @@ import { useFileState } from '@/atoms/answerState';
 import { isMobile } from '@/libs/utils';
 import { Button } from '@material-ui/core';
 import Layout from '@/components/Layout';
-import MainButton from '@/components/MainButton';
+import NextButton from '@/components/NextButton';
 
 function Upload() {
   const history = useHistory();
@@ -34,9 +34,9 @@ function Upload() {
         maxFileSize={10000000}
       />
       <Navigation>
-        <NextButton disabled={!files.length} onClick={onClick}>
+        <StyledNextButton disabled={!files.length} onClick={onClick}>
           다음
-        </NextButton>
+        </StyledNextButton>
         <Button color="primary" onClick={onClick}>
           건너뛰기
         </Button>
@@ -45,7 +45,7 @@ function Upload() {
   );
 }
 
-const NextButton = styled(MainButton)`
+const StyledNextButton = styled(NextButton)`
   margin-bottom: 16px;
 `;
 
