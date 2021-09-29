@@ -105,7 +105,7 @@ function Register() {
       <TextField
         name="phone"
         className={classes.root}
-        inputProps={{ className: classes.input }}
+        inputProps={{ className: classes.input, maxLength: 13 }}
         required
         fullWidth
         variant="filled"

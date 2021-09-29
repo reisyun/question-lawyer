@@ -54,10 +54,15 @@ export function useWriteForm() {
       files,
     });
 
-    await send(config.EMAILJS_SERVICE_ID, config.EMAILJS_TEMPLATE_ID, {
-      phone,
-      body,
-    });
+    await send(
+      config.EMAILJS_SERVICE_ID,
+      config.EMAILJS_TEMPLATE_ID,
+      {
+        phone,
+        body,
+      },
+      config.EMAILJS_USER_ID,
+    );
   };
 
   return sendEmail;

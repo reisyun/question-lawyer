@@ -10,7 +10,7 @@ const global = css`
     box-sizing: border-box;
   }
 
-  #my_react_app {
+  #question {
     height: inherit;
   }
 

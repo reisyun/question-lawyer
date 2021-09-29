@@ -17,8 +17,7 @@
     "airbnb/hooks",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier/react",
-    "plugin:prettier/recommended"
+    "prettier"
   ],
   "rules": {
     "no-shadow": "off",

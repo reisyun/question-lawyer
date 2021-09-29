@@ -29,8 +29,8 @@ const baseStyles = css`
   }
 `;
 
-const sizeStyles = ({ theme, size = 'medium' }: ButtonProps & ThemeProps) => {
-  return {
+const sizeStyles = ({ theme, size = 'medium' }: ButtonProps & ThemeProps) =>
+  ({
     small: css`
       height: 32px;
       font-size: ${theme.size.fontSize.xs};
@@ -43,11 +43,10 @@ const sizeStyles = ({ theme, size = 'medium' }: ButtonProps & ThemeProps) => {
       height: 64px;
       font-size: ${theme.size.fontSize.md};
     `,
-  }[size];
-};
+  }[size]);
 
-const variantStyles = ({ theme, variant = 'none' }: ButtonProps & ThemeProps) => {
-  return {
+const variantStyles = ({ theme, variant = 'none' }: ButtonProps & ThemeProps) =>
+  ({
     none: null,
     containe: css`
       background: ${theme.palette.color.main};
@@ -74,8 +73,7 @@ const variantStyles = ({ theme, variant = 'none' }: ButtonProps & ThemeProps) =>
         background: ${theme.palette.overlay.hover};
       }
     `,
-  }[variant];
-};
+  }[variant]);
 
 const disabledStyles = ({ theme, disabled }: ButtonProps & ThemeProps) =>
   disabled &&

@@ -17,8 +17,8 @@ const baseStyles = ({ theme }: ThemeProps) => css`
   color: ${theme.palette.color.main};
 `;
 
-const sizeStyles = ({ size = 'default' }: TagProps) => {
-  return {
+const sizeStyles = ({ size = 'default' }: TagProps) =>
+  ({
     small: css`
       height: 24px;
       border-radius: 12px;
@@ -27,8 +27,7 @@ const sizeStyles = ({ size = 'default' }: TagProps) => {
       height: 32px;
       border-radius: 16px;
     `,
-  }[size];
-};
+  }[size]);
 
 /**
  * Tag component
