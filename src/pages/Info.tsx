@@ -37,25 +37,14 @@ function Info() {
               법률과 관련된 고민을 쉽게 상담받아보세요
             </Text>
           </Titles>
-          {matches720 ? (
-            <StyledMobileButton
-              variant="contained"
-              size="large"
-              endIcon={<Icon icon="arrow" color="primary" />}
-              onClick={handleClick}
-            >
-              시작하기
-            </StyledMobileButton>
-          ) : (
-            <StyledPCButton
-              variant="contained"
-              size="large"
-              endIcon={<Icon icon="arrow" color="primary" />}
-              onClick={handleClick}
-            >
-              시작하기
-            </StyledPCButton>
-          )}
+          <StyledButton
+            variant="contained"
+            size="large"
+            endIcon={<Icon icon="arrow" color="primary" />}
+            onClick={handleClick}
+          >
+            시작하기
+          </StyledButton>
         </Inner>
       </Header>
       <Bottom>
@@ -230,30 +219,14 @@ const Title = styled(Text)`
   }
 `;
 
-const StyledPCButton = withStyles({
-  root: {
-    zIndex: 100,
-    width: 200,
-    height: 64,
-    background: 'white',
-    '&:hover': {
-      background: 'white',
-    },
-  },
-  label: {
-    color: '#212121',
-    fontWeight: 'bold',
-  },
-})(Button);
-
-const StyledMobileButton = withStyles({
+const StyledButton = withStyles({
   root: {
     zIndex: 100,
     width: 160,
     height: 64,
-    background: 'rgba(255,234,167, 0.8)',
+    background: 'white',
     '&:hover': {
-      background: 'rgba(255,234,167, 0.9)',
+      background: 'white',
     },
   },
   label: {

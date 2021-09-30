@@ -6,9 +6,9 @@ import theme from '@/styles/theme';
 import global from '@/styles/global';
 import { routes } from '@/libs/routes';
 
-import { createMuiTheme, ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 
-const muiTheme = createMuiTheme({
+const muiTheme = createTheme({
   typography: {
     fontFamily: 'Noto Sans KR regular',
   },
