@@ -2,8 +2,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useHistory } from 'react-router-dom';
-import Layout from '@/components/Layout';
 import { Button } from '@material-ui/core';
+import Layout from '@/components/Layout';
 
 function NotFound() {
   const history = useHistory();

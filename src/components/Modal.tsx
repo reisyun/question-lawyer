@@ -1,10 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { Dialog, DialogContent } from '@material-ui/core';
 import Image from '@/components/common/Image';
 import Text from '@/components/common/Text';
 import Button from '@/components/common/Button';
-import { Dialog, DialogContent } from '@material-ui/core';
 
 interface ModalProps {
   open: boolean;

@@ -2,9 +2,9 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useHistory } from 'react-router-dom';
 import { DropzoneArea } from 'material-ui-dropzone';
+import { Button } from '@material-ui/core';
 import { useFileState } from '@/atoms/answerState';
 import { isMobile } from '@/libs/utils';
-import { Button } from '@material-ui/core';
 import Layout from '@/components/Layout';
 import NextButton from '@/components/NextButton';
 

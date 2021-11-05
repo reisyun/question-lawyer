@@ -2,11 +2,11 @@ import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider, Global } from '@emotion/react';
+import { createTheme, ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import theme from '@/styles/theme';
 import global from '@/styles/global';
 import { routes } from '@/libs/routes';
 
-import { createTheme, ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 
 const muiTheme = createTheme({
   typography: {

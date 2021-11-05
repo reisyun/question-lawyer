@@ -1,23 +1,23 @@
-import { drunkDrive } from '@/questions/TrafficCrime/drunkDrive';
-import { hitAndRun } from '@/questions/TrafficCrime/hitAndRun';
-import { carInjury } from '@/questions/TrafficCrime/carInjury';
+import { drunkDrive } from '@/questions/trafficCrime/drunkDrive';
+import { hitAndRun } from '@/questions/trafficCrime/hitAndRun';
+import { carInjury } from '@/questions/trafficCrime/carInjury';
 
-import { fraud } from '@/questions/Fraud/fraud';
-import { embezzlement } from '@/questions/Fraud/embezzlement';
+import { fraud } from '@/questions/fraud/fraud';
+import { embezzlement } from '@/questions/fraud/embezzlement';
 
-import { assault } from '@/questions/Assault/assault';
+import { assault } from '@/questions/assault/assault';
 
-import { insult } from '@/questions/Insult/insult';
+import { insult } from '@/questions/insult/insult';
 
-import { molestation } from '@/questions/SexOffense/molestation';
-import { sexualAssault } from '@/questions/SexOffense/sexualAssault';
-import { prostitution } from '@/questions/SexOffense/prostitution';
-import { hiddenCamera } from '@/questions/SexOffense/hiddenCamera';
-import { distributionOfPornography } from '@/questions/SexOffense/distributionOfPornography';
-import { otherSexCrimes } from '@/questions/SexOffense/otherSexCrimes';
+import { molestation } from '@/questions/sexOffense/molestation';
+import { sexualAssault } from '@/questions/sexOffense/sexualAssault';
+import { prostitution } from '@/questions/sexOffense/prostitution';
+import { hiddenCamera } from '@/questions/sexOffense/hiddenCamera';
+import { distributionOfPornography } from '@/questions/sexOffense/distributionOfPornography';
+import { otherSexCrimes } from '@/questions/sexOffense/otherSexCrimes';
 
-import { schoolViolence } from '@/questions/SchoolViolence/schoolViolence';
-import { childAbuse } from '@/questions/SchoolViolence/childAbuse';
+import { schoolViolence } from '@/questions/schoolViolence/schoolViolence';
+import { childAbuse } from '@/questions/schoolViolence/childAbuse';
 
 export const questions = {
   // 교통범죄

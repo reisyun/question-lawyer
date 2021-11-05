@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useHistory } from 'react-router-dom';
-import Text from '@/components/common/Text';
 import { withStyles } from '@material-ui/core/styles';
 import { ButtonGroup, Button, Link, useMediaQuery } from '@material-ui/core';
+import Text from '@/components/common/Text';
 import Icon from '@/components/common/Icon';
 
 function Info() {

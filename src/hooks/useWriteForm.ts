@@ -1,6 +1,6 @@
 // import axios from 'axios';
 import { send } from 'emailjs-com';
-import { config } from '@/libs/config';
+import { config } from '@/libs/config.example';
 import { useThemeState, useSubjectState } from '@/atoms/questionState';
 import { useAnswerState, useFileState, AnswerType } from '@/atoms/answerState';
 
@@ -13,7 +13,14 @@ interface FormData {
   files: File[];
 }
 const createMailBody = (form: FormData) => {
-  const { theme, subject, answers, phone, email, files } = form;
+  const {
+    theme,
+    subject,
+    answers,
+    phone,
+    email,
+    // files
+  } = form;
 
   const answerHTML = answers
     .map(({ q, a }) => {
